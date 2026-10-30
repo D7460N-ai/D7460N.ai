@@ -1,0 +1,7 @@
+- name: Hyperlink link checker
+  # You may pin to the exact commit or the version.
+  # uses: untitaker/hyperlink@a98898238360d284c34eccf798680b70ba50b55b
+  uses: untitaker/hyperlink@0.1.31
+  with:
+    # CLI arguments to hyperlink
+    args: 

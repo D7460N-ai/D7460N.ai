@@ -1,2 +1,2 @@
-# D7460N.ai
-D7460N.ai
+# ai
+AutoCSS/AI prompts/instructions
