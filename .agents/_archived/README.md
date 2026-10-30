@@ -24,3 +24,4 @@ Contents:
 | `ORIGINAL-PROMPT.md` | original multi-repo build spec |
 | `COLOR-SCHEME-BUILD-PROMPT.md` | `color-scheme.css` build prompt |
 | `REMOTE-RENDERING-DEMO-BUILD-PROMPT.md` | remote-rendering demo build prompt |
+| `d7460n-css-only-SKILL.md` | starter's old `d7460n-css-only` skill (removed from 7 starter branches 2026-10-30; newest of 3 copies, the other 2 are subsets) |
