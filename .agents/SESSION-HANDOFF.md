@@ -1,9 +1,9 @@
-# Session Handoff — `Autocss-com/ai`
+# Session Handoff — `D7460N-ai/d7460n.ai`
 
 _Last updated: 2026-09-04 — session: accuracy-first guidelines + canon optimization._
 
 ## Repo role (never drift from this)
-`Autocss-com/ai` is THE single source of truth for **all** AI agents and **all** AutoCSS
+`D7460N-ai/d7460n.ai` is THE single source of truth for **all** AI agents and **all** AutoCSS
 projects. **Vendor-agnostic AND project-agnostic — zero exceptions.** Canon =
 `AGENTS.md` (Response Integrity Charter `C0–C8` + AutoCSS Architecture `§1–15`) plus
 `.agents/skills/**`. Nothing project- or vendor-specific may live in canon. Per-repo
@@ -53,7 +53,7 @@ rule above.
 # NEXT SESSION PROMPT — `scrapify` → AutoCSS JSON-contract → rebuilt site
 
 ## Read first (no implementation decision before this)
-1. `Autocss-com/ai/AGENTS.md` — canon (Charter `C0–C8` + Architecture `§1–15`).
+1. `D7460N-ai/d7460n.ai/AGENTS.md` — canon (Charter `C0–C8` + Architecture `§1–15`).
 2. This `SESSION-HANDOFF.md` (above) + the `session` skill; re-assert the Constraint Lock.
 3. Task-owning skills: `json`, `data-flow`, `javascript`, `architecture`.
    `.agents/_archived/` is NON-canonical history — never treat it as rules.
@@ -79,7 +79,7 @@ clone, register, then READ it end-to-end before proposing anything.
    AutoCSS reads it, neither knows the other.
 3. Frame `scrapify` as a **custom agent**: URL in → scrape → normalize to the contract →
    validate against the contract → hand to AutoCSS. Keep it project/vendor-agnostic;
-   nothing scrapify-specific leaks into `Autocss-com/ai`.
+   nothing scrapify-specific leaks into `D7460N-ai/d7460n.ai`.
 4. **Determinism substrate (proposal only):** evaluate a golden-snippet catalog — one
    verbatim, ID'd, copy-paste code block per rule so agents PLACE code, never synthesize
    it. This is the mechanism that makes both the AutoCSS build and scrapify's emitted

@@ -74,8 +74,8 @@ _Checked against MDN as of 2026-07-16._
 - `prefers-reduced-motion` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion
 - scroll-state container queries — **Limited availability** — https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Conditional_rules/Container_scroll-state_queries
 
-**AutoCSS Architecture:** serves how to verify a change before it ships. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves how to verify a change before it ships. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 
@@ -84,4 +84,4 @@ _Checked against MDN as of 2026-07-16._
 - MDN `@supports`: https://developer.mozilla.org/en-US/docs/Web/CSS/@supports
 - MDN `prefers-reduced-motion`: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
 - Playwright (dev-only driver): https://playwright.dev/
-- AutoCSS Architecture (canonical rules): https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+- AutoCSS Architecture (canonical rules): https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md

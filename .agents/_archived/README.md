@@ -3,10 +3,10 @@
 **Everything in this directory is archived: kept for historical/provenance value, NOT
 canon.** Do not read, cite, or follow any file here as an active rule.
 
-- **Canon** lives in `Autocss-com/ai/AGENTS.md` (Response Integrity Charter + AutoCSS
+- **Canon** lives in `D7460N-ai/d7460n.ai/AGENTS.md` (Response Integrity Charter + AutoCSS
   Architecture) and in `.agents/skills/**`. Those are the only authoritative sources.
 - These files are **project-specific build/analysis artifacts** (DHCP, starter, autocss,
-  and the framework demos) produced during earlier sessions. `Autocss-com/ai` is
+  and the framework demos) produced during earlier sessions. `D7460N-ai/d7460n.ai` is
   project- and vendor-agnostic; this content is the opposite, so it is quarantined here
   rather than deleted.
 - **Not** archived: `../SESSION-HANDOFF.md` (active working state, updated every session)

@@ -44,7 +44,7 @@ Hold this as the **overall context** (Charter §8) on every AutoCSS response: yo
 
 - **Rule:** Every fact lives in exactly one place. Do not restate a rule, value, or datum that already exists elsewhere.
 - **Why:** Duplication drifts out of sync and doubles maintenance.
-- **Shows up:** canonical laws in ONE file (`Autocss-com/ai` AGENTS.md); `PROGRESS.json` as the single backlog source; design tokens as custom properties set once; the `@layer` order derived from `<link>` order, not a second master list.
+- **Shows up:** canonical laws in ONE file (`D7460N-ai/d7460n.ai` AGENTS.md); `PROGRESS.json` as the single backlog source; design tokens as custom properties set once; the `@layer` order derived from `<link>` order, not a second master list.
 - **Tell:** a value or rule copied into two files — collapse to one and reference it.
 
 ## Minimum Entropy / Minimal New Code
@@ -129,12 +129,12 @@ _Checked against MDN as of 2026-07-16._
 - `:empty` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:empty
 - `light-dark()` — **Baseline Newly available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/light-dark
 
-**AutoCSS Architecture:** serves the decision rules that resolve trade-offs beneath the concern skills. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the decision rules that resolve trade-offs beneath the concern skills. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 
 - MDN Web Docs (authoritative platform reference): https://developer.mozilla.org/
 - W3C TR index (standards): https://www.w3.org/TR/
 - W3C — Rule of Least Power: https://www.w3.org/2001/tag/doc/leastPower.html
-- AutoCSS Architecture + Response Integrity Charter (canonical): https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+- AutoCSS Architecture + Response Integrity Charter (canonical): https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md

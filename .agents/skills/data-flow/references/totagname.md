@@ -74,8 +74,8 @@ _Checked against MDN as of 2026-07-16._
 
 - `custom elements` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
 
-**AutoCSS Architecture:** serves the JSON-key-to-custom-element-tag-name conversion function. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the JSON-key-to-custom-element-tag-name conversion function. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 

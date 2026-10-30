@@ -75,8 +75,8 @@ _Checked against MDN as of 2026-07-16._
 
 - Dynamic `import()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import
 
-**AutoCSS Architecture:** serves the catalog of forbidden JavaScript patterns and the layer that owns each concern instead. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the catalog of forbidden JavaScript patterns and the layer that owns each concern instead. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 

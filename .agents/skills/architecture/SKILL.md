@@ -139,5 +139,5 @@ _Checked against MDN as of 2026-07-16._
 
 - `:has()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/:has
 
-**AutoCSS Architecture:** serves the concern-separation entry point and task routing for the browser-native, declarative-first architecture. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the concern-separation entry point and task routing for the browser-native, declarative-first architecture. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md

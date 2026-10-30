@@ -112,8 +112,8 @@ _Checked against MDN as of 2026-07-16._
 - `:user-invalid` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:user-invalid
 - `:user-valid` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:user-valid
 
-**AutoCSS Architecture:** serves native, JS-free form validation over semantic fieldset/label form structure. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves native, JS-free form validation over semantic fieldset/label form structure. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 

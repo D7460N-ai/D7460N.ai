@@ -113,8 +113,8 @@ _Checked against MDN as of 2026-07-16._
 - `Referrer-Policy` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy
 - `Permissions-Policy` — **Limited availability** (Experimental; not in Firefox or Safari) — https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Permissions-Policy
 
-**AutoCSS Architecture:** serves the SPA/PWA threat model — threats, defenses, and residual risks. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the SPA/PWA threat model — threats, defenses, and residual risks. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 

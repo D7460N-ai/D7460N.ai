@@ -162,8 +162,8 @@ _Checked against MDN as of 2026-07-16._
 - `:empty` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/:empty
 - Dynamic viewport units (`dvh` etc.) — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/length
 
-**AutoCSS Architecture:** serves Grid-only Holy Grail layout, breakpoint-free intrinsic sizing (`minmax`/`min`/auto-fit), container-driven component responsiveness, and CSS-replaces-JS visibility keyed to data presence (`:empty`/`:not(:empty)`/`:has()`) — upholding Least Power, Separation of Concerns, zero dependencies, and no wrapper elements. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves Grid-only Holy Grail layout, breakpoint-free intrinsic sizing (`minmax`/`min`/auto-fit), container-driven component responsiveness, and CSS-replaces-JS visibility keyed to data presence (`:empty`/`:not(:empty)`/`:has()`) — upholding Least Power, Separation of Concerns, zero dependencies, and no wrapper elements. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 

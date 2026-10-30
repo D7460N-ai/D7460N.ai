@@ -75,8 +75,8 @@ _Checked against MDN as of 2026-07-16._
 - `content` alt-text (`"⬅" / "Scroll left"`) — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/content
 - `::scroll-button()`, `::scroll-marker`, `::scroll-marker:target-current`, `scroll-marker-group` — **Limited availability / experimental (Chromium only)** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::scroll-marker
 
-**AutoCSS Architecture:** serves *cutting-edge experimental CSS* and *no JS carousel libraries, no event listeners*. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves *cutting-edge experimental CSS* and *no JS carousel libraries, no event listeners*. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 

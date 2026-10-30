@@ -2,7 +2,7 @@
 
 **This file is THE single source of truth for ALL AI agents, for ALL AutoCSS projects.**
 It is **vendor-agnostic** (no tool-specific rules) and **project-agnostic** (nothing repo-specific).
-It lives once, here, in `Autocss-com/ai`. Every repo and every vendor file
+It lives once, here, in `D7460N-ai/d7460n.ai`. Every repo and every vendor file
 (`CLAUDE.md`, `.cursorrules`, Copilot instructions) points at THIS file. Never copy it.
 Never restate its rules elsewhere. Edit it here; every project gets the change.
 

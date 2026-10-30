@@ -80,8 +80,8 @@ _Checked against MDN as of 2026-07-16._
 - `transition-behavior` (incl. `allow-discrete`) — **Baseline 2024 Newly available** — https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior
 - `@view-transition` — **Limited availability** — https://developer.mozilla.org/en-US/docs/Web/CSS/@view-transition
 
-**AutoCSS Architecture:** serves the single-document SPA model — radio-nav routing read by CSS and the `oninput` data lifecycle. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the single-document SPA model — radio-nav routing read by CSS and the `oninput` data lifecycle. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 
@@ -90,4 +90,4 @@ _Checked against MDN as of 2026-07-16._
 - MDN `transition-behavior`: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-behavior
 - MDN `Event()` / `dispatchEvent`: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent
 - MDN Single-page applications: https://developer.mozilla.org/en-US/docs/Glossary/SPA
-- AutoCSS Architecture (canonical rules): https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+- AutoCSS Architecture (canonical rules): https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md

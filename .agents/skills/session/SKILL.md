@@ -14,7 +14,7 @@ Work spans many sessions and many AI vendors. Continuity is a discipline, not an
 
 1. Read `.agents/SESSION-HANDOFF.md` **before making any implementation decision**.
 2. Re-assert the handoff's **Constraint Lock** before coding.
-3. If the handoff conflicts with a skill, the `architecture` skill, or the canonical laws, **stop and ask** — never resolve silently (conflict priority: `Autocss-com/ai` AGENTS.md > repo AGENTS.md > `SESSION-HANDOFF.md`).
+3. If the handoff conflicts with a skill, the `architecture` skill, or the canonical laws, **stop and ask** — never resolve silently (conflict priority: `D7460N-ai/d7460n.ai` AGENTS.md > repo AGENTS.md > `SESSION-HANDOFF.md`).
 
 Skipping handoff review "to save time" is prohibited — it is the single largest cause of lost context and repeated mistakes.
 
@@ -60,11 +60,11 @@ _Checked against MDN as of 2026-07-16._
 
 - No version-sensitive web-platform features are referenced here — everything used is **Baseline Widely available**.
 
-**AutoCSS Architecture:** serves cross-session continuity, backlog, and handoff discipline. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves cross-session continuity, backlog, and handoff discipline. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 
-- AutoCSS Architecture + Response Integrity Charter (canonical): https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+- AutoCSS Architecture + Response Integrity Charter (canonical): https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 - Agent Skills open standard: https://agentskills.io
 - GitHub Projects (board automation): https://docs.github.com/issues/planning-and-tracking-with-projects

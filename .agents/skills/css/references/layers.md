@@ -54,8 +54,8 @@ _Checked against MDN as of 2026-07-16._
 
 - `@layer` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/@layer
 
-**AutoCSS Architecture:** serves cascade control without `!important` and deliberate low-priority interop (a consuming system's unlayered styles win by default) — upholding Separation of Concerns, Least Power, and zero-dependency, browser-native styling. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves cascade control without `!important` and deliberate low-priority interop (a consuming system's unlayered styles win by default) — upholding Separation of Concerns, Least Power, and zero-dependency, browser-native styling. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
 
 ## Reference
 
