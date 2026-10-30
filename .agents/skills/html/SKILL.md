@@ -174,6 +174,7 @@ _Checked against MDN as of 2026-07-16._
 - Custom elements (autonomous) — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
 - `:has()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:has
 
+**AutoCSS Architecture:** serves the semantic-only, div-less structure layer — the finite element/attribute whitelist every UI behavior binds to. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 **Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 
 ## References

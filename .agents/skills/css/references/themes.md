@@ -119,6 +119,7 @@ _Checked against MDN as of 2026-07-16._
 - relative color syntax `oklch(from …)` — **Newly available (~2024)** — https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors
 - `accent-color` — **Limited availability (not Baseline)** — https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color
 
+**AutoCSS Architecture:** serves light/dark via color-scheme + light-dark(); oklch for perceptual uniformity; zero preprocessor. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 **Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 
 ## Reference

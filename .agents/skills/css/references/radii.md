@@ -62,6 +62,7 @@ _Checked against MDN as of 2026-07-16._
 - `border-radius` + `calc()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius
 - `corner-shape` (`squircle`, `scoop`, `notch`, …) — **Limited availability / experimental (not Baseline)** — https://developer.mozilla.org/en-US/docs/Web/CSS/corner-shape
 
+**AutoCSS Architecture:** serves derive values (inner + padding = outer); no magic numbers. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 **Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 
 ## Reference

@@ -60,6 +60,7 @@ _Checked against MDN as of 2026-07-16._
 
 - No version-sensitive web-platform features are referenced here — everything used is **Baseline Widely available**.
 
+**AutoCSS Architecture:** serves cross-session continuity, backlog, and handoff discipline. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 **Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 
 ## Reference

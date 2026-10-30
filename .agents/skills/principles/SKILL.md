@@ -129,6 +129,7 @@ _Checked against MDN as of 2026-07-16._
 - `:empty` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:empty
 - `light-dark()` — **Baseline Newly available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/light-dark
 
+**AutoCSS Architecture:** serves the decision rules that resolve trade-offs beneath the concern skills. Canonical rules: https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 **Canonical rules:** https://github.com/Autocss-com/ai/blob/main/AGENTS.md
 
 ## Reference
