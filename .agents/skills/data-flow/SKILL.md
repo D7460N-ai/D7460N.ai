@@ -137,8 +137,7 @@ _Checked against MDN as of 2026-07-16._
 - `subgrid` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Subgrid
 - `:has()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:has
 
-**AutoCSS Architecture:** serves the JSON-to-custom-element rendering pipeline for data tables and list-rendered content. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the JSON-to-custom-element rendering pipeline for data tables and list-rendered content. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
 
 ## References
 

@@ -85,8 +85,7 @@ _Checked against MDN as of 2026-07-16._
 - `Response.ok` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
 - `Response.json()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Response/json
 
-**AutoCSS Architecture:** serves the single API transport surface — fetch base URL, endpoint-suffix resolution, JSON parsing, and error handling. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the single API transport surface — fetch base URL, endpoint-suffix resolution, JSON parsing, and error handling. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
 
 ## Reference
 

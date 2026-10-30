@@ -100,8 +100,7 @@ _Checked against MDN as of 2026-07-16._
 
 - Custom elements (autonomous) — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements
 
-**AutoCSS Architecture:** serves the two-category custom-element discipline that keeps markup semantic and div-less. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the two-category custom-element discipline that keeps markup semantic and div-less. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
 
 ## Reference
 

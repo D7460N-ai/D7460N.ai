@@ -89,5 +89,4 @@ _Checked against MDN as of 2026-07-16._
 
 - No version-sensitive web-platform features are referenced here — everything used is **Baseline Widely available**.
 
-**AutoCSS Architecture:** serves concrete good/bad naming examples for each named-thing kind. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves concrete good/bad naming examples for each named-thing kind. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md

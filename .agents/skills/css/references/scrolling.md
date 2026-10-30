@@ -83,8 +83,7 @@ _Checked against MDN as of 2026-07-16._
 - `scrollbar-gutter` — **Baseline 2024 (Newly available, Dec 2024)** — https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-gutter
 - `overscroll-behavior` — **Limited availability (not Baseline)** — https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior
 
-**AutoCSS Architecture:** serves limited scrollable elements; standard scrollbar properties, never `::-webkit-scrollbar`. Canonical rules: https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
-**Canonical rules:** https://github.com/D7460N-ai/d7460n.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves limited scrollable elements; standard scrollbar properties, never `::-webkit-scrollbar`. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
 
 ## Reference
 
