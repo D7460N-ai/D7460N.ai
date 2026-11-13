@@ -181,7 +181,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - One `<script type="module">` before `</body>`, outside `<app-container>`.
 - No HTML in JSON. Ever.
 - Custom elements: only two categories permitted — the closed `app-*` set (`app-container`, `app-logo`, `app-user`, `app-legal`, `app-version`, `app-banner`), or data-table (`<ul><li>`) row elements generated from JSON keys via `toTagName()`, injected with paired `value`. Anything outside these is forbidden.
-- Always use `<meta name="color-scheme" content="light dark">` to minimizing flash of unstyled content (FOUC).
+- Always use `<meta name="color-scheme" content="dark light">` to minimizing flash of unstyled content (FOUC).
 - Full ruleset: [`.agents/skills/html/SKILL.md`](./.agents/skills/html/SKILL.md).
 
 ## 4. CSS — the UI runtime
@@ -270,6 +270,8 @@ End-users and developers both must always have a forward path.
 
 - **End-users** — every error state, every empty state, every blocked path includes a way out.
 - **Developers** — every concept in this documentation links to deeper reference material in `.agents/skills/*/references/*.md`.
+- **External sources** — if an external source is mentioned, a valid link to that source is included.
+- **Browser-support messages** — when the user's browser does not support a CSS feature being used, the message names the unsupported CSS feature, the user's browser name and version, and the browser name and version that supports the feature, with a valid link to download the latest version of what they are using. Voice: professional and confident; must not sound AI-generated.
 
 A dead end is a UX or DX defect to be fixed.
 
