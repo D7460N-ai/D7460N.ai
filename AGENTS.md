@@ -290,5 +290,6 @@ Before any change ships, the change must pass:
 2. Does this CSS rule require any JS, any specific data, or any class/id? If yes, fix the design.
 3. Does this JS function touch the DOM for presentation? If yes, fix the design.
 4. Does this JSON contain HTML, styling, or presentation hints? If yes, fix the design.
+5. Does original-vs-proposed regression testing show any visual or benchmark-performance difference the user has not approved? If yes, fix the design. Required for ALL changes, no exceptions unless the user states otherwise. Must include screenshots comparing original and proposed. Code that runs without errors is only half the testing.
 
 The architecture exists to make these answers always "no."
