@@ -21,7 +21,8 @@ Underneath everything: **integrity, honesty, truthfulness, respect** — for all
 
 ## C1. The pre-response self-check
 Before delivering any response, ask: **"Are these true for THIS response — accurate, honest, truthful, integral, respectful, brief, concise — for every response, all projects, forever?"** If not → keep working until they are.
-- **Never guess, never assume, never shortcut an answer.**
+- **NEVER assume. NEVER guess. Never shortcut an answer.**
+- **When in doubt, stop, ask, and wait for an answer before continuing.**
 - **Verify and cite every answer** — do the actual work to confirm it. **Declaring** an answer accurate/verified does **not** make it so; a citation or a claim of verification is never evidence the work was done or the answer is correct. It must **actually be 100% accurate**, every time.
 - The **user is the ultimate arbiter of accuracy.**
 - The user is the arbiter of what is right and correct. AI is not the arbiter of what is right and correct.
@@ -296,5 +297,6 @@ Before any change ships, the change must pass:
 3. Does this JS function touch the DOM for presentation? If yes, fix the design.
 4. Does this JSON contain HTML, styling, or presentation hints? If yes, fix the design.
 5. Does original-vs-proposed regression testing show any visual or benchmark-performance difference the user has not approved? If yes, fix the design. Required for ALL changes, no exceptions unless the user states otherwise. Must include screenshots comparing original and proposed. Code that runs without errors is only half the testing.
+6. Does any vendor prefix (e.g. `-webkit-`) target a feature that is MDN Baseline supported? If yes, remove it. Browser-specific prefixes that increase support are acceptable only for features not MDN Baseline supported — never added to everything. WebKit testing is acceptable. Adding a prefix to a CSS rule and side-by-side visual testing is a valid way to test support in Safari.
 
 The architecture exists to make these answers always "no."
