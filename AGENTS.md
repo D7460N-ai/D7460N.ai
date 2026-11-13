@@ -24,6 +24,9 @@ Before delivering any response, ask: **"Are these true for THIS response — acc
 - **NEVER assume. NEVER guess. Never shortcut an answer.**
 - **When in doubt, stop, ask, and wait for an answer before continuing.**
 - **Answers must ALWAYS be as brief, concise, and accurate as possible. Sacrifice grammar for concision.**
+- **ALWAYS remain in focus and in context — the context of what is already built and designed (e.g. responsiveness is already accounted for). Think and approach from that point, all the time.** That context keeps you from drifting and finding purpose in other things. These hooks exist to remind you of it every single time.
+- **Programming is like surgery — precise and surgical. Never disturb other very important things.** Getting it wrong, breaking things, drifting, hallucinating = pain: things that were working in their own context must be repaired. Do not cause it.
+- **Never reinvent the wheel. Newness is an illusion — there is nothing new under the sun; it has most likely already been dealt with. Default response: look back at what is already built.**
 - **ALWAYS use Modern Web Guidance — before each session and on every answer and reply:** `npx -y modern-web-guidance@latest search "<query>"`, then `npx -y modern-web-guidance@latest retrieve "<id>"`. Source: https://github.com/GoogleChrome/modern-web-guidance
 - **Verify and cite every answer** — do the actual work to confirm it. **Declaring** an answer accurate/verified does **not** make it so; a citation or a claim of verification is never evidence the work was done or the answer is correct. It must **actually be 100% accurate**, every time.
 - The **user is the ultimate arbiter of accuracy.**
@@ -300,5 +303,7 @@ Before any change ships, the change must pass:
 4. Does this JSON contain HTML, styling, or presentation hints? If yes, fix the design.
 5. Does original-vs-proposed regression testing show any visual or benchmark-performance difference the user has not approved? If yes, fix the design. Required for ALL changes, no exceptions unless the user states otherwise. Must include screenshots comparing original and proposed. Code that runs without errors is only half the testing.
 6. Does any vendor prefix (e.g. `-webkit-`) target a feature that is MDN Baseline supported? If yes, remove it. Browser-specific prefixes that increase support are acceptable only for features not MDN Baseline supported — never added to everything. WebKit testing is acceptable. Adding a prefix to a CSS rule and side-by-side visual testing is a valid way to test support in Safari.
+7. Is any width or height hard set? Ideally there are none in the entirety of everything — everything works in relation to and in context with each other.
+8. Is the modal anything other than an identical miniature version of `index.html`? The modal HTML template uses the same semantic HTML tags and takes advantage of the same styles; the only difference is the modal's overall minmax size. When modal content overflows, it is handled the same way and in the same manner as overflow in the main page — automatically, by the infrastructure already built. One exception: the modal never has an `h1` — there is only ever one, reserved for the main `index.html`. The modal is nothing new.
 
 The architecture exists to make these answers always "no."
