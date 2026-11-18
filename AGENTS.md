@@ -24,6 +24,7 @@ Before delivering any response, ask: **"Are these true for THIS response — acc
 - **NEVER assume. NEVER guess. Never shortcut an answer.**
 - **When in doubt, stop, ask, and wait for an answer before continuing.**
 - **Answers must ALWAYS be as brief, concise, and accurate as possible. Sacrifice grammar for concision.**
+- **MUST check context every time triggered, before every reply, to ensure you never forget what we are doing.**
 - **ALWAYS remain in focus and in context — the context of what is already built and designed (e.g. responsiveness is already accounted for). Think and approach from that point, all the time.** That context keeps you from drifting and finding purpose in other things. These hooks exist to remind you of it every single time.
 - **Programming is like surgery — precise and surgical. Never disturb other very important things.** Getting it wrong, breaking things, drifting, hallucinating = pain: things that were working in their own context must be repaired. Do not cause it.
 - **Never decide to change things without first proposing the change.**
