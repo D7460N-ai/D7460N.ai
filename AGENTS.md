@@ -182,6 +182,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 
 ## 3. HTML — structure only
 
+- **Every HTML file starts with `<!doctype html>` on line 1.** Without it, browsers render in quirks mode. → [WHATWG: the DOCTYPE — "A DOCTYPE is a required preamble"](https://html.spec.whatwg.org/multipage/syntax.html#the-doctype)
 - Semantic elements only. No `<div>`, `<span>`, `class`, `id`, `data-*`.
   - **Why (know why you are doing this):** it minimizes selector-dependency complexity, enforces semantics, ensures portability, and **gets out of the way of other systems who do use classes/IDs/`data-*`** — their selectors land unopposed.
 - Interactive elements that are not intrinsically interactive use `<label>` wrapping an `<input type="checkbox">` or `<input type="radio">`. No JS-driven `<button>` or `eventListener`. **The `<input>` is the control — preserve its native semantics. It already provides role, state, and keyboard support for free; that is the accessibility, baked in.** Four non-negotiables follow, each with its citation:
