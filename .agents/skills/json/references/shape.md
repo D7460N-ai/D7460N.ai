@@ -66,6 +66,8 @@ For pages whose primary content is a list of rows (a data table).
 
 The list keys (`id`, `productName`, `unitPrice`, `lastModified`) become custom element tag names via `toTagName()` — see the `data-flow` skill.
 
+This `rows` contract is the single source: column order and presence come from the keys themselves, and an edit form is built from a selected row's own values with input types **inferred from those values** (no separate schema required — `data-flow` skill). Selecting a row reuses that record for the form; there is no second payload for the form.
+
 ## Empty values
 
 Empty strings, `null`, missing keys, and absent rows are all valid. CSS reacts:

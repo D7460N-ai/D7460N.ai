@@ -65,9 +65,9 @@ A field appears in exactly one place in the JSON. The DOM element rendered from 
 
 Shell content (`header`, `nav`, `footer`, `meta`) is fetched once per runtime session from the `shell` endpoint. Page content (`home`, `about`, `products`, `events`, `contact`) is fetched per nav change. The JSON shape of each is independent — shell payloads do not contain page data and vice versa.
 
-## Schema
+## Schema (optional)
 
-A schema is an external description of permitted keys, types, and constraints for a payload. Schemas live in `.json` files alongside the data they describe. Schemas do not contain HTML, CSS, or JavaScript.
+A schema is **not required**: by default the JSON contract drives the render (keys give column order and presence; form-input types are inferred from the values — see the `data-flow` skill). A schema is an optional external description of permitted keys, types, and constraints, used only where external validation genuinely warrants it. Schemas live in `.json` files alongside the data they describe. Schemas do not contain HTML, CSS, or JavaScript.
 
 ## Baseline & support
 

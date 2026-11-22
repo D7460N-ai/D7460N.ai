@@ -81,9 +81,11 @@ Use native validation attributes:
 
 CSS reads validity via `:user-invalid` / `:user-valid`. See `../../css/references/inputs.md`.
 
-## Schema-driven forms
+## Contract-driven forms (schema optional)
 
-For forms whose fields come from JSON, the schema declares:
+By default an edit form is built from the record it edits — for a data table, the **selected row's own cells**. Each cell's key becomes a field `<label>`, and the input type is **inferred from the value** (id/UUID and ISO date-time → read-only; everything else editable). No separate schema is required — the contract is the source. `oninput.js`/the table module renders the fieldset by iterating the record's cells, creating each `<label>` with its `<input>`. The HTML stays semantic; the dynamic part is the contents of the fieldset. See the `data-flow` skill.
+
+A schema is optional — reach for one only where external validation warrants declaring fields explicitly:
 
 ```json
 {
@@ -94,8 +96,6 @@ For forms whose fields come from JSON, the schema declares:
   ]
 }
 ```
-
-`oninput.js` renders the fieldset by iterating the schema, creating each `<label>` with its `<input>`, and applying validation attributes. The HTML stays semantic; the dynamic part is the contents of the fieldset. See the `data-flow` skill.
 
 ## What forms never contain
 

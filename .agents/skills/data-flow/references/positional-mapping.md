@@ -40,9 +40,9 @@ This still avoids classes. The selector remains semantic and stable.
 
 ## Adding a new page-level field
 
-1. Add the key to the schema.
-2. Add an entry to `PAGE_FIELD_MAP` in `oninput.js`.
-3. Update the affected payloads to include the new key.
+1. Add an entry to `PAGE_FIELD_MAP` in `oninput.js`.
+2. Update the affected payloads to include the new key.
+3. (Only if the payload uses the optional schema) add the key there too.
 
 The HTML shell does not change (already has the regions). The CSS does not change (already styles the regions). Only the data layer and the renderer mapping are touched.
 

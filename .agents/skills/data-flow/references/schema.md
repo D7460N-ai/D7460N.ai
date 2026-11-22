@@ -1,6 +1,8 @@
-# Schema
+# Schema (optional — superseded as the default)
 
-The schema is an external `.json` file describing permitted keys, types, and rendering order for a payload. Schema lives separate from data. The schema is JSON; it does not contain HTML, CSS, or JavaScript.
+**Default: no schema.** The JSON contract is the schema — its keys drive column order and presence, and form-input types are inferred from the values (`data-flow` SKILL → "Contract-driven ordering and value-inferred types"). Prefer that; reach for a schema file **only** when external validation or constraints genuinely warrant one, and never as a required step.
+
+When you do use one: the schema is an external `.json` file describing permitted keys, types, and rendering order for a payload. Schema lives separate from data. The schema is JSON; it does not contain HTML, CSS, or JavaScript.
 
 ## Where schema lives
 

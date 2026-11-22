@@ -89,21 +89,24 @@ Custom element tag names always contain a hyphen — this is an HTML spec requir
 
 The function is named `toTagName`, not `toKebab`. The name describes the concern (producing a valid tag name), not the implementation (kebab-case).
 
-## Schema-driven visibility and ordering
+## Contract-driven ordering and value-inferred types (no required schema)
 
-The order of keys in JSON does not determine the DOM render order. The order comes from a schema (external `.json` file) that lists the permitted keys for a payload type along with their preferred order.
+The JSON payload's own keys drive the render: their order is the column order, their presence is the visibility — an empty value renders an empty element which CSS hides via `:empty`. A separate schema file is **not required**; the contract IS the schema.
 
-```
-schema example
-[
-  "id",
-  "productName",
-  "unitPrice",
-  "lastModified"
-]
-```
+For an edit form built from a record, the input type is **inferred from the value**, not declared:
 
-Visibility is not a flag in the schema. Visibility is the data presence — an empty value renders an empty element which CSS hides via `:empty`.
+- an `id` key, or a value shaped like a UUID → read-only text
+- an ISO date-time value → read-only `datetime-local`
+- a key naming provenance (`created`, `modified`, `updated`, `author`) → read-only text
+- everything else → editable text (required when non-empty)
+
+A hint a value cannot imply (e.g. the option set for a `<select>`) rides **inline in the contract**, never in a separate file.
+
+A schema remains **optional** — use one only where external validation or constraints genuinely warrant it (`references/schema.md`).
+
+## One dataset drives the table; the form reuses it
+
+The rows render the table body (each `<li>` is one record). There is no second data source for the edit form: selecting a row copies **that** record's own cell values into the form. Each row carries a hidden radio (single-select) whose `:checked` state is the selection — CSS owns the selected-row visual; JS only copies the values across. Selection is data reuse, not a second fetch.
 
 ## Positional mapping for page-level fields
 
@@ -143,6 +146,7 @@ _Checked against MDN as of 2026-07-16._
 
 - `references/totagname.md` — the function specification with edge cases (single words, all-caps, numerals)
 - `references/lifecycle.md` — fetch → parse → render sequence in detail
-- `references/schema.md` — schema file format and where it lives
+- `references/schema.md` — the **optional** schema (superseded as the default by contract-driven ordering + value-inference; kept for cases that need external validation)
 - `references/positional-mapping.md` — page-level field-to-element table
+- `references/pool.md` — pool-materialization (Mechanism A) vs data-table cells (Mechanism B), the `<template>` allow-list + silent-drop guard, serving the pool from the host (App Shell), and the golden-baseline regression gate
 - Custom elements spec: https://html.spec.whatwg.org/multipage/custom-elements.html
