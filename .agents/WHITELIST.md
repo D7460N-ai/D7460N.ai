@@ -86,7 +86,7 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | J4 | Events: only `input`. Exception (P6): `sw.js` may use `self.oninstall`, `self.onactivate`, `self.onfetch`. All other JS events prohibited unless noted per feature. |
 | J5 | API base URL declared once; only suffix varies. Failed fetch → detailed console error; no fallback, no mock. |
 | J6 | Reach elements with CSS selector syntax and logic (`querySelector`, `querySelectorAll`, `closest`, `matches`) as much as possible. JS node-walking (e.g. `parentNode`, `childNodes`) only where CSS can't do it, with the justification in a code comment beside it. Never `getElementById` or `getElementsBy…`. |
-| J7 | No JS DOM manipulation (hard rule). Sole exception: adding or removing HTML that the data requires and that isn't already in the page, e.g. `ul`/`li` table rows, nav labels and their radio inputs, dropdown-menu items, content paragraphs. Never `innerHTML` (HTML in JS), never inline styles, never JS-driven presentation. |
+| J7 | No JS DOM manipulation (hard rule). The scaffolding and layout are pre-delivered in the HTML and never change. Sole exception: a generic JS loop adds or removes only the HTML that directly wraps content, as the data requires (e.g. `ul`/`li` table rows, nav labels and their radio inputs, dropdown-menu items, content paragraphs, custom elements that wrap content), and writes data into elements (text, `src`/`alt`). Never `innerHTML` (HTML in JS), never inline styles, never JS-driven presentation. |
 
 ## D. JSON
 | # | Allowed |
