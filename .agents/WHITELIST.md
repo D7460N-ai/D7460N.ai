@@ -81,7 +81,7 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 |---|---|
 | J1 | `check`: on load, reads browser memory for the nav radio selected last session. |
 | J2 | `set`: selects the radio `check` found; none → first nav radio. Then dispatches `new Event("input", { bubbles: true })` on it, so its own `oninput` runs. This is the only event JS fires, and only on load. |
-| J3 | `oninput`: a user's selection fires `input` natively — no JS defines or fires it (sole exception: J2 on load). `oninput` fetches that radio's JSON content. |
+| J3 | `oninput`: a user's selection fires `input` natively — no JS fires it (sole exception: J2 on load). One line in JS connects the function: `document.oninput = oninput`. Never an `oninput` attribute in HTML. `oninput` fetches that radio's JSON content. |
 | J4 | Events: only `input`. Exception (P6): `sw.js` may use `self.oninstall`, `self.onactivate`, `self.onfetch`. All other JS events prohibited unless noted per feature. |
 | J5 | API base URL declared once; only suffix varies. Failed fetch → detailed console error; no fallback, no mock. |
 
@@ -110,7 +110,6 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 ## Open — not ruled by the user
 | # | Item | Fact on record |
 |---|---|---|
-| O2 | How the `oninput` function attaches | User: "we don't need js to define and fire it." Options on record: JS `.oninput =` property, or HTML `oninput` attribute (prior canon forbade `on*=` in markup). |
 | O3 | Where the last selection is saved (P2) | User: "covered in set function." cdn today saves in `oninput` (`oninput.js:26`). |
 | O4 | Restore identity | User's code restores by radio `value`; earlier user statement: "you don't even need an HTML value." Radios without `value` all report `"on"`. |
 | O5 | `querySelectorAll` | Not in J; the validator blocks it. |
