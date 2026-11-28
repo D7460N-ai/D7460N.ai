@@ -52,7 +52,7 @@
   "reply": {
     "banned": ["you'?re right","you are right","honest answer","to be honest","great question","transparently","per the charter","for accuracy","just to be safe","won'?t paper over","\\bI (feel|want|wish|love|hope)\\b","\\bI'?m (glad|sorry|happy|excited|thrilled)\\b"],
     "refusal": "\\bI can'?t\\b|\\bI cannot\\b|\\bcan'?t be done\\b|\\bnot possible\\b|\\bimpossible\\b",
-    "claim": "\\b(I|I've|we|we've)\\s+(verified|confirmed|tested|checked|saved|committed|pushed|fixed|deployed|updated|created|ran|logged)\\b|\\b(all\\s+)?tests?\\s+pass(ed)?\\b"
+    "claim": "\\b(I|I've|we|we've)\\s+(verified|confirmed|tested|checked|saved|committed|pushed|fixed|deployed|updated|created|ran|logged)\\b|\\b(all\\s+)?tests?\\s+pass(ed)?\\b|\\b(untouched|unchanged|no changes?|nothing (was )?(changed|touched|modified|edited))\\b|\\b(did ?n[o']t|have ?n[o']t|never) (change|changed|touch|touched|modify|modified|edit|edited)\\b"
   },
   "bash": {
     "ask": "\\bgit\\s+(commit|push|merge|rebase|reset|tag|cherry-pick)\\b|\\bgh\\s+(pr|repo|release)\\b",

@@ -8,8 +8,7 @@ import { inject } from "./inject.js";
 import { readStorage } from "./read-storage.js";
 
 export async function onload() {
-  console.clear();
-  inject(await fetchJson("shell"), document.body);
+  inject(await fetchJson("assets/data/shell.json"), document.body);
 
   const group = "nav";
   const saved = readStorage(group);
