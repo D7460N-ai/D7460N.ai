@@ -22,6 +22,23 @@
         "C": "JS writes only the message text; CSS shows it via :not(:empty); role=alert; drop showPopover(); remove the nav radio from the prototype"
       },
       "recommended": "C"
+    },
+    {
+      "id": "P9",
+      "item": "How JSON content maps to page elements (non-table content)",
+      "status": "later",
+      "findings": [
+        "Project now (inject.js + assets/data/*.json): JSON keys are HTML tag names (h1, p, li, label, app-logo), found inside the parent element; live on the id site",
+        "AGENTS.md section 6 (in repo, no longer loaded): meaning keys (pageTitle, intro, body, rows; appLogo, navItems[{label, suffix}]) each assigned to one element",
+        "Tag names as JSON keys may conflict with whitelist D1 (JSON data only)",
+        "Ruled already: key-to-new-custom-element only for ul > li data tables (P3); scaffold fixed, loop only adds/removes content-wrapping HTML (J7)"
+      ],
+      "decisions": {
+        "1": "keys: tag names (current) or meaning names (section 6)",
+        "2": "reuse (fill existing, clone extra from pool, empty surplus, never remove) or replace",
+        "3": "contentEditable (edit content in place): later"
+      },
+      "recommended": "1 tag names, 2 reuse, 3 later (no code change; already running)"
     }
   ]
 }
