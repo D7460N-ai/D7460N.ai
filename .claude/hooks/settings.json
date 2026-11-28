@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "SessionStart": [{ "hooks": [{ "type": "command", "command": "node", "args": ["__HOOKS__/enforce.js", "SessionStart"] }] }],
+    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "node", "args": ["__HOOKS__/enforce.js", "UserPromptSubmit"] }] }],
+    "PreToolUse": [{ "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash|PowerShell", "hooks": [{ "type": "command", "command": "node", "args": ["__HOOKS__/enforce.js", "PreToolUse"], "onFailure": "block" }] }],
+    "Stop": [{ "hooks": [{ "type": "command", "command": "node", "args": ["__HOOKS__/enforce.js", "Stop"] }] }],
+    "SubagentStop": [{ "hooks": [{ "type": "command", "command": "node", "args": ["__HOOKS__/enforce.js", "Stop"] }] }]
+  }
+}

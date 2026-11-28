@@ -1,0 +1,69 @@
+{
+  "scope": {
+    "css": "(^|/)assets/css/[^/]+\\.css$",
+    "js": "(^|/)assets/js/[^/]+\\.js$|(^|/)sw\\.js$",
+    "html": "(^|/)index\\.html$|(^|/)assets/pool\\.html$",
+    "json": "(^|/)assets/(data|json)/.+\\.json$"
+  },
+  "concernSkill": { "css": "css", "js": "javascript", "html": "html", "json": "json" },
+  "injectSections": ["## C1\\.", "## C4\\.", "## C5\\."],
+  "css": [
+    ["!important", "AGENTS 4: no !important", ""],
+    ["display\\s*:\\s*(inline-)?flex|\\bflex-(direction|wrap|flow|grow|shrink|basis)\\s*:", "AGENTS 2: Grid only, never Flexbox", "i"],
+    ["#[0-9a-fA-F]{3,8}\\b", "AGENTS 4: oklch only, no hex", ""],
+    ["\\b(rgba?|hsla?)\\(", "AGENTS 4: oklch only, no rgb/hsl", "i"],
+    ["@media[^{]*\\b(min|max)-(width|height)\\b", "AGENTS 4: no size-based @media", "i"],
+    ["\\b(margin|padding|border|inset)-(left|right|top|bottom)\\b|(^|[;{\\s])(left|right|top|bottom)\\s*:", "AGENTS 4: logical properties only", "im"],
+    ["(^|[\\s,>+~(}])\\.[a-zA-Z_-][\\w-]*|#(?![0-9a-fA-F]{3,8}\\b)[a-zA-Z_-][\\w-]*|\\[(class|id|data-[\\w-]*)\\b", "AGENTS 3: no class/id/data-* selectors", "m"],
+    ["(^|[;{\\s])(margin|padding|border|background|font|inset|outline|transition|animation|gap|overflow|border-radius|list-style|text-decoration|place-items|place-content|place-self|grid-area|grid-template|columns)\\s*:", "Standing rule: longhands only, no shorthand", "im"],
+    ["::-webkit-scrollbar", "css/references/scrolling: standard scrollbar properties only", "i"],
+    ["@view-transition", "AGENTS 4: @view-transition not used", "i"],
+    ["\\b100vh\\b", "css/references/media: 100dvh, never 100vh", "i"],
+    ["transition\\s*:\\s*all\\b|transition-property\\s*:\\s*all\\b", "css/references/transitions: never transition all", "i"],
+    [":invalid\\b", "css/references/inputs: :user-invalid, never :invalid", "i"],
+    ["font-size\\s*:\\s*[\\d.]+px", "css/references/typography: no pixel font-size", "i"]
+  ],
+  "html": {
+    "elements": ["html","head","body","title","meta","link","script","noscript","template","header","nav","main","aside","footer","article","section","hgroup","address","search","h1","h2","h3","h4","h5","h6","p","ul","ol","li","dl","dt","dd","table","thead","tbody","tfoot","tr","th","td","caption","colgroup","col","form","fieldset","legend","label","input","select","option","optgroup","textarea","output","figure","figcaption","picture","source","img","video","audio","track","details","summary","dialog","menu","a","time","mark","abbr","cite","code","pre","blockquote","q","strong","em","small","sub","sup","br","hr","wbr","button","app-container","app-logo","app-user","app-legal","app-version","app-banner"],
+    "deny": [
+      ["\\s(class|id)\\s*=", "AGENTS 3: no class/id", "i"],
+      ["\\sdata-[\\w-]+\\s*=", "AGENTS 3: no data-*", "i"],
+      ["\\son[a-z]+\\s*=", "AGENTS 2/5: no on* attributes", "i"],
+      ["\\sstyle\\s*=", "AGENTS 2: no CSS in HTML", "i"],
+      ["<script(?![^>]*\\ssrc=)[^>]*>", "AGENTS 2: no JS in HTML", "i"],
+      ["<label[^>]*\\s(role=[\"']button|aria-hidden)", "AGENTS 3: never role=button or aria-hidden on the label", "i"],
+      ["<input[^>]*\\s(aria-hidden|hidden)\\b", "AGENTS 3: never hide the input from AT or keyboard", "i"]
+    ]
+  },
+  "js": {
+    "calls": ["fetch","json","querySelector","getItem","setItem","removeItem","clear","log","warn","error","appendChild","replaceChildren","removeInlineStyles","clearFieldset","toTagName","createElement","dispatchEvent","Event","Error","URL","String","Number","Boolean","Date","entries","keys","values","isArray","parse","stringify","map","forEach","filter","find","includes","slice","replace","toLowerCase","toUpperCase","trim","split","join","at","startsWith","endsWith","test","then","catch","toISOString","encodeURIComponent","decodeURIComponent","push","match","isNaN","some","every","reduce"],
+    "assign": ["textContent","checked","oninput","value"],
+    "keywords": ["if","for","while","switch","catch","function","return","await","async","typeof","import","export","super"],
+    "deny": [
+      ["(^|\\.)createElement\\s*\\((?!\\s*toTagName\\s*\\()", "User ruling: createElement only for custom elements from JSON keys, via toTagName", "m"],
+      ["dispatchEvent\\s*\\((?!\\s*new Event\\(\\s*[\"']input[\"'])", "AGENTS 5: dispatchEvent only for the sanctioned input event", ""],
+      ["^\\s*let\\s", "AGENTS 5: no module-level mutable state", "m"],
+      ["from\\s+[\"'](?!\\.{1,2}/)", "AGENTS 2: no third-party imports", ""],
+      ["\\btoKebab\\b", "naming: toTagName, not toKebab", ""]
+    ]
+  },
+  "json": [
+    ["<\\/?[a-zA-Z][^>]*>", "AGENTS 6: no HTML in JSON", ""],
+    ["\"(display|hidden|visible|theme|columns|rowHeight|className|class|style|onClick|isDarkMode|headerColor|show[A-Z]\\w*)\"\\s*:", "AGENTS 6: no presentation hints", ""]
+  ],
+  "secrets": ["ghp_[A-Za-z0-9]{20,}","github_pat_[A-Za-z0-9_]{20,}","sk-ant-[A-Za-z0-9-]{20,}","AKIA[0-9A-Z]{16}","-----BEGIN [A-Z ]*PRIVATE KEY-----"],
+  "reply": {
+    "banned": ["you'?re right","you are right","honest answer","to be honest","great question","transparently","per the charter","for accuracy","just to be safe","won'?t paper over","\\bI (feel|want|wish|love|hope)\\b","\\bI'?m (glad|sorry|happy|excited|thrilled)\\b"],
+    "refusal": "\\bI can'?t\\b|\\bI cannot\\b|\\bcan'?t be done\\b|\\bnot possible\\b|\\bimpossible\\b",
+    "claim": "\\b(I|I've|we|we've)\\s+(verified|confirmed|tested|checked|saved|committed|pushed|fixed|deployed|updated|created|ran|logged)\\b|\\b(all\\s+)?tests?\\s+pass(ed)?\\b"
+  },
+  "bash": {
+    "ask": "\\bgit\\s+(commit|push|merge|rebase|reset|tag|cherry-pick)\\b|\\bgh\\s+(pr|repo|release)\\b",
+    "deny": "\\bln\\s+-s|\\bmklink\\b|\\bNew-Item\\b[^|;]*SymbolicLink|--no-verify|disableAllHooks",
+    "protected": "\\.claude[/\\\\]hooks|\\.claude[/\\\\]settings|\\.claude[/\\\\]CLAUDE\\.md",
+    "write": ">|\\b(tee|sed\\s+-i|rm|del|mv|cp|Set-Content|Add-Content|Out-File|Remove-Item|Move-Item|Copy-Item)\\b"
+  },
+  "protectedPaths": "/\\.claude/hooks/|/\\.claude/settings[^/]*\\.json$|/\\.claude/CLAUDE\\.md$",
+  "canon": { "repo": "/D7460N\\.ai/", "names": "\\b(DHCP|starter|vue|angular|react|Claude|Cursor|Copilot)\\b" },
+  "commitEmail": "80736+dragontheory@users.noreply.github.com"
+}
