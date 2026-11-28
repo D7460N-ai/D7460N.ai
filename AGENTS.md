@@ -185,7 +185,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - **The three-way air-gap, absolute:** NEVER any HTML in JS. NEVER any CSS or JS in HTML. NEVER any JS or HTML in CSS. **JS uses CSS and its selector logic to select elements** (`querySelector`, `querySelectorAll`, `closest`, `matches`).
 - Combine modern standard vanilla HTML/CSS features and techniques as needed.
 - **JavaScript** is permitted only below the `oninput` boundary: bootstrap, the `oninput` lifecycle, data transport (CRUD), and persistence. One function per file; no limit on the number of files. Reference implementation: [`.agents/skills/javascript/references/implementation/`](./.agents/skills/javascript/references/implementation/).
-- **No third-party dependencies.**
+- **No third-party dependencies.** Web fonts are allowed where appropriate: Google Fonts `@import` or self-hosted `@font-face`.
 - **No build tools, no bundlers, no transpilers, no compilers.**
 - **No cross-browser concerns.** Evergreen browsers only. Latest features used without regard for older browsers.
 - Single-page application (`index.html` at root) deployed as PWA via `manifest.webmanifest`.
@@ -204,7 +204,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - Forms inside `<fieldset>`; field order, presence, and input types come from the JSON contract (a separate schema only where external validation requires it).
 - One `<script type="module">` before `</body>`, outside `<app-container>`.
 - No HTML in JSON. Ever.
-- Custom elements: only two categories permitted — the closed `app-*` set (`app-container`, `app-logo`, `app-user`, `app-legal`, `app-version`, `app-banner`), or data-table (`<ul><li>`) row elements generated from JSON keys via `toTagName()`, injected with paired `value`. Anything outside these is forbidden.
+- All valid semantic HTML elements are permitted (never `div`, `span`). Custom elements: the `app-*` set (`app-container`, `app-logo`, `app-user`, `app-legal`, `app-version`, `app-banner`) and every custom element in the `<template>` pool.
 - Always use `<meta name="color-scheme" content="dark light">` to minimizing flash of unstyled content (FOUC).
 - Full ruleset: [`.agents/skills/html/SKILL.md`](./.agents/skills/html/SKILL.md).
 
@@ -220,8 +220,8 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - No `!important`. Ever.
 - No size-based `@media` (`min-width` / `max-width`). Always use intrinsic content based syntax such as min or max `content` width and `@container` or media query range syntax. If values are required, use `ch` (character) value type 
 - No padding or margin on any elements except for content level elements, such as `<p>`, `<h1>`, `<label>`.
-- `oklch` for project color schemes (light dark), and color themes. No `hex`, `hsl`, `rgb`.
-- Logical properties only (`margin-inline`, `padding-block`, etc.) to maintain automatic multi-national usability.
+- All CSS color types and all CSS units are permitted. All pseudo-classes and pseudo-elements are permitted.
+- Logical properties (`margin-inline`, `padding-block`, etc.) where content direction matters — right-to-left and left-to-right languages. Physical properties are allowed elsewhere.
 - Required modern features: `@starting-style` for entry fade-in, CSS anchor positioning for hover/popover content. (`@view-transition` is **not** used — it fires only on cross-document navigations, so it is inert in this SPA; add it only if the app ever navigates between documents.)
 - Full ruleset: [`.agents/skills/css/SKILL.md`](./.agents/skills/css/SKILL.md).
 
@@ -326,6 +326,6 @@ Before any change ships, the change must pass:
 7. Is any width or height hard set? Ideally there are none in the entirety of everything — everything works in relation to and in context with each other.
 8. Is the modal anything other than an identical miniature version of `index.html`? The modal HTML template uses the same semantic HTML tags and takes advantage of the same styles; the only difference is the modal's overall minmax size. When modal content overflows, it is handled the same way and in the same manner as overflow in the main page — automatically, by the infrastructure already built. One exception: the modal never has an `h1` — there is only ever one, reserved for the main `index.html`. The modal is nothing new.
 9. Does any layout depend on a fixed number of child elements — anything that silently breaks when a child is added or removed (e.g. a positional track list in `grid-template-rows`/`grid-template-columns`, `:nth-child(n)`/`:nth-of-type(n)`, numeric `grid-row`/`grid-column` placement)? Regression testing must check for it: check whether there is a fixed number of children and whether the parent depends on that number. If yes, propose styles based on real semantic HTML elements, not position or count (never decide to change things without first proposing the change) — e.g. `main` always holds the page's main scrolling content, so `main` (not "the 4th child") gets the full height and keeps its layout even when a sibling is added before or after it. Grid layouts take a dynamic number of child elements, all working together in unison, without tracking or changing fixed numbers — one of the major breakthroughs that makes AutoCSS possible. This must never get broken. More UI features are coming: resizable elements, fully functional 3D isometric layouts.
-10. Does any CSS use Flexbox (`display: flex`/`inline-flex`, `flex-*`)? If yes, fix the design. **Hard rule: Layout = CSS Grid only. Never Flexbox** (§2 Stack). Never propose, test, or suggest Flexbox. **Grid template areas are valid, usable, and have their place — but not for AutoCSS. Grid templates are explicit** (`grid-template-rows`/`-columns`/`-areas` define the explicit grid — [MDN: Grid](https://developer.mozilla.org/en-US/docs/Glossary/Grid)). **AutoCSS must use and maintain the layout using implicit grid methods.**
+10. Does any CSS use Flexbox (`display: flex`/`inline-flex`, `flex-*`)? If yes, fix the design. **Hard rule: Layout = CSS Grid only. Never Flexbox** (§2 Stack). Never propose, test, or suggest Flexbox. **Prefer the implicit grid for layout. Explicit `grid-template-*` and numeric placement are allowed where needed** (`grid-template-rows`/`-columns`/`-areas` define the explicit grid — [MDN: Grid](https://developer.mozilla.org/en-US/docs/Glossary/Grid)). The goal: fluid, flexible, non-brittle layouts that don't break when children are added or removed — avoid numbers that must be maintained.
 
 The architecture exists to make these answers always "no."

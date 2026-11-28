@@ -45,9 +45,12 @@ function violations(kind, added, whole = added, isNew = false) {
   if (kind === "html") {
     const t = noHtmlNoise(added);
     const found = hits(RULES.html.deny, t);
+    // Custom elements in the <template> pool are permitted (AGENTS 3).
+    const tpl = noHtmlNoise(whole).match(/<template[^>]*>([\s\S]*?)<\/template>/i)?.[1] ?? noHtmlNoise(whole);
+    const pool = new Set([...tpl.matchAll(/<([a-zA-Z][\w]*-[\w-]*)/g)].map((m) => m[1].toLowerCase()));
     for (const m of t.matchAll(/<([a-zA-Z][\w-]*)/g)) {
       const tag = m[1].toLowerCase();
-      if (!RULES.html.elements.includes(tag)) found.push(`html allowlist: <${tag}> is not permitted`);
+      if (!RULES.html.elements.includes(tag) && !pool.has(tag)) found.push(`html allowlist: <${tag}> is not permitted`);
     }
     return found;
   }

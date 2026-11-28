@@ -10,20 +10,13 @@
   "css": [
     ["!important", "AGENTS 4: no !important", ""],
     ["display\\s*:\\s*(inline-)?flex|\\bflex-(direction|wrap|flow|grow|shrink|basis)\\s*:", "AGENTS 2: Grid only, never Flexbox", "i"],
-    ["#[0-9a-fA-F]{3,8}\\b", "AGENTS 4: oklch only, no hex", ""],
-    ["\\b(rgba?|hsla?)\\(", "AGENTS 4: oklch only, no rgb/hsl", "i"],
     ["@media[^{]*\\b(min|max)-(width|height)\\b", "AGENTS 4: no size-based @media", "i"],
-    ["\\b(margin|padding|border|inset)-(left|right|top|bottom)\\b|(^|[;{\\s])(left|right|top|bottom)\\s*:", "AGENTS 4: logical properties only", "im"],
     ["(^|[\\s,>+~(}])\\.[a-zA-Z_-][\\w-]*|#(?![0-9a-fA-F]{3,8}\\b)[a-zA-Z_-][\\w-]*|\\[(class|id|data-[\\w-]*)\\b", "AGENTS 3: no class/id/data-* selectors", "m"],
-    ["::-webkit-scrollbar", "css/references/scrolling: standard scrollbar properties only", "i"],
     ["@view-transition", "AGENTS 4: @view-transition not used", "i"],
-    ["\\b100vh\\b", "css/references/media: 100dvh, never 100vh", "i"],
-    ["transition\\s*:\\s*all\\b|transition-property\\s*:\\s*all\\b", "css/references/transitions: never transition all", "i"],
-    [":invalid\\b", "css/references/inputs: :user-invalid, never :invalid", "i"],
-    ["font-size\\s*:\\s*[\\d.]+px", "css/references/typography: no pixel font-size", "i"]
+    ["transition\\s*:\\s*all\\b|transition-property\\s*:\\s*all\\b", "css/references/transitions: never transition all", "i"]
   ],
   "html": {
-    "elements": ["html","head","body","title","meta","link","script","noscript","template","header","nav","main","aside","footer","article","section","hgroup","address","search","h1","h2","h3","h4","h5","h6","p","ul","ol","li","dl","dt","dd","table","thead","tbody","tfoot","tr","th","td","caption","colgroup","col","form","fieldset","legend","label","input","select","option","optgroup","textarea","output","figure","figcaption","picture","source","img","video","audio","track","details","summary","dialog","menu","a","time","mark","abbr","cite","code","pre","blockquote","q","strong","em","small","sub","sup","br","hr","wbr","button","app-container","app-logo","app-user","app-legal","app-version","app-banner"],
+    "elements": ["html","head","body","title","meta","link","script","noscript","template","header","nav","main","aside","footer","article","section","hgroup","address","search","h1","h2","h3","h4","h5","h6","p","ul","ol","li","dl","dt","dd","table","thead","tbody","tfoot","tr","th","td","caption","colgroup","col","form","fieldset","legend","label","input","select","option","optgroup","textarea","output","figure","figcaption","picture","source","img","video","audio","track","details","summary","dialog","menu","a","time","mark","abbr","cite","code","pre","blockquote","q","strong","em","small","sub","sup","br","hr","wbr","button","b","i","u","s","bdi","bdo","ruby","rt","rp","dfn","del","ins","kbd","samp","var","data","meter","progress","datalist","canvas","iframe","embed","object","map","area","base","slot","app-container","app-logo","app-user","app-legal","app-version","app-banner"],
     "deny": [
       ["\\s(class|id)\\s*=", "AGENTS 3: no class/id", "i"],
       ["\\sdata-[\\w-]+\\s*=", "AGENTS 3: no data-*", "i"],
