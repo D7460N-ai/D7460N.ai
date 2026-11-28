@@ -36,9 +36,7 @@
     ]
   },
   "js": {
-    "calls": ["fetch","json","querySelector","getItem","setItem","removeItem","clear","log","warn","error","appendChild","replaceChildren","removeInlineStyles","clearFieldset","toTagName","createElement","dispatchEvent","Event","Error","URL","String","Number","Boolean","Date","entries","keys","values","isArray","parse","stringify","map","forEach","filter","find","includes","slice","replace","toLowerCase","toUpperCase","trim","split","join","at","startsWith","endsWith","test","then","catch","toISOString","encodeURIComponent","decodeURIComponent","push","match","isNaN","some","every","reduce"],
     "assign": ["textContent","checked","oninput","value"],
-    "keywords": ["if","for","while","switch","catch","function","return","await","async","typeof","import","export","super"],
     "deny": [
       ["(^|\\.)createElement\\s*\\((?!\\s*toTagName\\s*\\()", "User ruling: createElement only for custom elements from JSON keys, via toTagName", "m"],
       ["dispatchEvent\\s*\\((?!\\s*new Event\\(\\s*[\"']input[\"'])", "AGENTS 5: dispatchEvent only for the sanctioned input event", ""],

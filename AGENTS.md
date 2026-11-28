@@ -183,7 +183,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - **HTML + CSS only** for everything except data transport (CRUD).
 - **The three-way air-gap, absolute:** NEVER any HTML or CSS in JS. NEVER any CSS or JS in HTML. NEVER any JS or HTML in CSS.
 - Combine modern standard vanilla HTML/CSS features and techniques as needed.
-- **JavaScript** is permitted only below the `oninput` boundary: `app.js` (bootstrap), `oninput.js` (lifecycle), `api.js` (CRUD), `storage.js` (persistence), `tour.js` (placeholder).
+- **JavaScript** is permitted only below the `oninput` boundary: bootstrap, the `oninput` lifecycle, data transport (CRUD), and persistence. One function per file; no limit on the number of files. Reference implementation: [`.agents/skills/javascript/references/implementation/`](./.agents/skills/javascript/references/implementation/).
 - **No third-party dependencies.**
 - **No build tools, no bundlers, no transpilers, no compilers.**
 - **No cross-browser concerns.** Evergreen browsers only. Latest features used without regard for older browsers.
@@ -231,8 +231,8 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - **Why (know why you are doing this):** a minimal JavaScript surface reduces attack vectors.
 - **Secrets never live in the browser.** Never expose, embed, or commit them; avoid unnecessary external calls. See [`security`](./.agents/skills/security/SKILL.md).
 - **User data:** never read, collect, persist, or transmit it unless the feature explicitly requires it **and** the user deliberately initiates the action.
-- Five files exist in `assets/js/`, period: `app.js`, `oninput.js`, `api.js`, `storage.js`, `tour.js`.
-- `document.querySelector()` only. No `getElementById`, no `getElementsByClassName`.
+- No limit on the number of files — in `assets/js/` or anywhere (HTML, CSS, JS). One function per file, as many files as needed (§2). Reference implementation: [`.agents/skills/javascript/references/implementation/`](./.agents/skills/javascript/references/implementation/).
+- `document.querySelector()` / `querySelectorAll()` only. No `getElementById`, no `getElementsByClassName`.
 - No `addEventListener`. Anywhere. The `oninput` lifecycle uses direct `.oninput` property assignment.
 - No `on*=` event handler attributes in markup.
 - Stateless and idempotent. No module-level mutable state. No globals.

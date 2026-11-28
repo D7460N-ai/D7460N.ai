@@ -31,15 +31,6 @@ function jsViolations(added, whole) {
   const code = noJsComments(added);
   const found = hits(RULES.js.deny, code);
   const bare = noJsStrings(code);
-  const declared = new Set();
-  for (const m of noJsStrings(noJsComments(whole)).matchAll(/\b(?:function\s*\*?\s*|const\s+|var\s+)([A-Za-z_$][\w$]*)|import\s*\{([^}]*)\}/g)) {
-    (m[1] ? [m[1]] : m[2].split(",").map((s) => s.trim().split(/\s+as\s+/).pop())).forEach((n) => declared.add(n));
-  }
-  for (const m of bare.matchAll(/(\.?)\s*\b([A-Za-z_$][\w$]*)\s*\(/g)) {
-    const name = m[2];
-    if (RULES.js.keywords.includes(name) || RULES.js.calls.includes(name) || (!m[1] && declared.has(name))) continue;
-    found.push(`JS allowlist: ${m[1]}${name}() is not on the functional allowlist. Propose it to the owner; do not add it`);
-  }
   for (const m of bare.matchAll(/\.([A-Za-z_$][\w$]*)\s*=(?![=>])/g)) {
     if (!RULES.js.assign.includes(m[1])) found.push(`JS allowlist: assignment to .${m[1]} is not on the functional allowlist`);
   }

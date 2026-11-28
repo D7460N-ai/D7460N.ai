@@ -12,23 +12,27 @@ JavaScript is data transport only. CRUD against an API. Nothing else.
 
 ## The only permitted JavaScript responsibilities
 
-1. **API transport** — `fetch()` against the configured endpoint base, parsing JSON responses
-2. **`oninput` lifecycle** — wiring nav radios and form inputs to data fetches via the `input` DOM event in `oninput.js`
-3. **Storage** — localStorage primary, cookie fallback, in `storage.js`
-4. **Startup wiring** — `console.clear()`, programmatic initial nav click, in `app.js`
-5. **Tour placeholder** — `tour.js` reserved for future onboarding logic
+1. **API transport** — `fetch()` of JSON, parsing responses
+2. **`oninput` lifecycle** — one `document.oninput` handler; every state-machine input enters it
+3. **Data injection** — JSON → DOM by key/shape (text, cloned `<template>` slots, allow-listed attributes)
+4. **Storage** — localStorage, one key per state-machine group
+5. **Startup wiring** — fill the shell, then select a state machine so its own `oninput` fires
 
 Anything else is forbidden.
 
-## Only these files exist in `assets/js/`
+## Files
 
-- `assets/js/app.js` — entrypoint, startup wiring, console reset
-- `assets/js/oninput.js` — shared `input` event lifecycle, binds nav and form inputs, routes API calls
-- `assets/js/api.js` — `fetch()`, base URL, endpoint suffix resolution, response parsing
-- `assets/js/storage.js` — localStorage and cookie utilities
-- `assets/js/tour.js` — placeholder
+One function per file, named for what it does. **No limit on the number of files.**
 
-No other JavaScript files are added without explicit user instruction.
+**Reference implementation (canonical, copy-paste):** [`references/implementation/`](./references/implementation/)
+
+- `app.js` — router: `document.oninput = oninput`, then `onload()`
+- `oninput.js` — the single lifecycle: label text → `assets/data/<name>.json` → `inject()` into `main`; saves the selection
+- `onload.js` — injects `shell.json`, selects the saved (or first) nav radio, dispatches its `input` event
+- `fetch-json.js` — GET one JSON file; `null` on any failure
+- `inject.js` — JSON → DOM: key = tag, shape = destination; surplus elements emptied (CSS `:empty` hides them)
+- `to-tag-name.js` — JSON key → tag name
+- `read-storage.js` / `write-storage.js` — localStorage read/write, silent on failure
 
 ## Only these patterns for DOM access
 
@@ -43,20 +47,20 @@ Forbidden:
 
 ## Only these patterns for events
 
-- **`element.addEventListener('input', handler)`** is forbidden in markup-driven flows. The `input` event is bound once in `oninput.js` via direct property assignment to the discovered nodes.
+- **`element.addEventListener('input', handler)`** is forbidden in markup-driven flows. The `input` event is bound once via direct property assignment: `document.oninput = oninput` (`app.js`).
 - The HTML attribute `oninput=` and every other `on*=` attribute is forbidden in markup. See the `html` skill.
 - `addEventListener` is forbidden anywhere in the project, including inside JS files. The `oninput.js` lifecycle uses direct `.oninput` property assignment, which is idempotent.
 
 The reasoning: every event registration is a piece of UI behavior. UI behavior belongs to CSS. The single exception is data transfer triggered by user input, which is the `oninput` lifecycle.
 
-## Only these utilities for unavoidable DOM mutation
+## DOM mutation for data
 
-The architecture pulls all UI state into CSS. Two utilities exist for cases where CSS cannot reach a particular browser default:
+The architecture pulls all UI state into CSS. JS mutates the DOM only to place data, as `inject.js` does: text via text nodes (`createTextNode`, `prepend`, `removeChild`) so nested state-machine inputs survive; extra slots cloned from the `<template>` pool (`cloneNode`); attributes only from an allow-list (`src`, `alt`) via `setAttribute`. Surplus elements are emptied, never removed — CSS `:empty` hides them.
+
+Also permitted where CSS cannot reach a browser default:
 
 - `removeInlineStyles(element)` — strips any inline `style` attribute that the browser or a third-party may have inserted
 - `clearFieldset(fieldset)` — resets a `<fieldset>` to its empty state for a fresh data render
-
-No other DOM mutation utilities are added. If a need arises, surface it to the user before writing.
 
 ## Constraints on every function
 
@@ -67,10 +71,10 @@ No other DOM mutation utilities are added. If a need arises, surface it to the u
 
 ## Lifecycle conventions
 
-- The API base URL is declared **once**, in `api.js`. Only the endpoint suffix varies per page (`shell`, `home`, `about`, `products`, `events`, `contact`).
-- Initial page load enters the same `oninput` lifecycle path via a programmatic `element.click()` on the appropriate nav radio. There is no separate "boot" path.
+- The API base URL is declared **once**. Only the endpoint suffix varies per page (`shell`, `home`, `about`, `products`, `events`, `contact`).
+- Initial page load enters the same `oninput` lifecycle by selecting the saved (or first) nav radio, setting `checked = true`, and dispatching `new Event("input", { bubbles: true })` (AGENTS.md §5; `onload.js`). Never `.click()`. There is no separate "boot" path.
 - Shell content (header, nav, footer, meta) is fetched and injected once per runtime session, not on every page change.
-- Nav radio index maps to page endpoint suffix; the same DOM targets are reused for content injection.
+- The control's own label text names its data file — no index, no list, no lookup (`oninput.js`). The same DOM targets are reused for content injection.
 - `console.clear()` runs on startup and on each lifecycle run.
 
 ## Console policy
@@ -106,6 +110,7 @@ _Checked against MDN as of 2026-07-16._
 
 ## References
 
+- `references/implementation/` — the canonical reference implementation (8 files)
 - `references/lifecycle.md` — the canonical `oninput` flow from input event to data injection
 - `references/api.md` — fetch, base URL, suffix, error handling
 - `references/storage.md` — localStorage and cookie patterns
