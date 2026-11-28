@@ -1,44 +1,35 @@
 # API
 
-The single transport surface: [`implementation/fetch-json.js`](./implementation/fetch-json.js). Base declared once. Only the name (endpoint suffix) varies. JSON in, parsed data out.
+The single transport surface: [`implementation/fetch-json.js`](./implementation/fetch-json.js). JSON in, parsed data out.
 
 ## The shape of `fetch-json.js`
 
 ```javascript
-const BASE = "assets/data/";
+// MARK: FETCH-JSON
+// GET one JSON file. Returns parsed data, or null on any failure.
+// Transport only. Knows no element, no state machine, no route name.
 
-export async function fetchJson(name = "") {
-  if (!name) return null;
-
-  const path = `${BASE}${name}.json`;
+export async function fetchJson(path = "") {
+  if (!path) return null;
 
   try {
     const response = await fetch(path);
-
-    if (!response.ok) {
-      console.error(`${new Date().toISOString()} FAIL ${path}`, response.status, response.statusText, response);
-      return null;
-    }
-
-    const data = await response.json();
-    console.log(`${new Date().toISOString()} OK ${path}`);
-    return data;
-  } catch (error) {
-    console.error(`${new Date().toISOString()} FAIL ${path}`, error);
+    return response.ok ? await response.json() : null;
+  } catch {
     return null;
   }
 }
 ```
 
-`BASE` is declared once, here. Callers pass only the name: `fetchJson("shell")`, `fetchJson(route)`. A remote API changes `BASE` (and the `.json` suffix if its paths differ) — nothing else.
+Callers pass the full path: `fetchJson("assets/data/shell.json")` (`onload.js`), `` fetchJson(`assets/data/${route}.json`) `` (`oninput.js`).
 
 ## Error handling
 
-Success logs one minimal timestamped line. Failure logs verbosely (status, status text, response, or the thrown error) and returns `null`; `inject(null)` is a no-op. The architecture does not invent fallback data, redirect to a local mock, or retry against a different endpoint (AGENTS.md §8).
+A non-OK response or a thrown error returns `null`; `inject(null)` is a no-op. Nothing is logged. The architecture does not invent fallback data, redirect to a local mock, or retry against a different endpoint (AGENTS.md §8).
 
 ## CRUD verbs
 
-`fetchJson` is GET. For POST / PUT / PATCH / DELETE, add one function per file (e.g. `post-json.js`) that reuses the same base — export `BASE` from `fetch-json.js` and import it; never declare a second base. Never a class.
+`fetchJson` is GET. For POST / PUT / PATCH / DELETE, add one function per file (e.g. `post-json.js`). Never a class.
 
 ## What transport never does
 

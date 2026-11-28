@@ -9,11 +9,11 @@ user selects a state-machine input (or onload.js selects one on initial load)
   ↓
 input event bubbles to document → document.oninput (oninput.js)
   ↓
-console.clear(); the control's own label text names its data file
+the control's own label text names its data file
   ↓
 write-storage.js saves the selection (key = the input's group name)
   ↓
-fetch-json.js GETs <base><name>.json and parses it
+fetch-json.js GETs assets/data/<name>.json and parses it
   ↓
 inject.js places the data into <main>: key = tag, shape = destination
   ↓
@@ -34,7 +34,7 @@ document.oninput = oninput;
 onload();
 ```
 
-`onload.js` clears the console, injects `shell.json` into `<body>`, then selects the saved (or first) nav radio and dispatches its `input` event:
+`onload.js` injects `assets/data/shell.json` into `<body>`, then selects the saved (or first) nav radio and dispatches its `input` event:
 
 ```javascript
 control ? (control.checked = true) : null;
@@ -51,7 +51,10 @@ Setting `.checked` alone does not fire `input`, and `.click()` is forbidden (AGE
 
 ```javascript
 const route = control.closest("label")?.textContent.trim().toLowerCase();
-inject(await fetchJson(route), document.querySelector("main"));
+inject(
+  await fetchJson(`assets/data/${route}.json`),
+  document.querySelector("main")
+);
 ```
 
 The label text ("Home") names the data file (`home.json`). No index, no list, no lookup table.

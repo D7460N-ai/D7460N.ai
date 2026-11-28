@@ -27,9 +27,9 @@ One function per file, named for what it does. **No limit on the number of files
 **Reference implementation (canonical, copy-paste):** [`references/implementation/`](./references/implementation/)
 
 - `app.js` — router: `document.oninput = oninput`, then `onload()`
-- `oninput.js` — the single lifecycle: `console.clear()`, label text → `fetchJson(name)` → `inject()` into `main`; saves the selection
-- `onload.js` — `console.clear()`, injects `shell.json`, selects the saved (or first) nav radio, dispatches its `input` event
-- `fetch-json.js` — declares the data base once; GET `<base><name>.json`; timestamped success/failure logging; `null` on any failure
+- `oninput.js` — the single lifecycle: label text → `` fetchJson(`assets/data/<name>.json`) `` → `inject()` into `main`; saves the selection
+- `onload.js` — injects `assets/data/shell.json`, selects the saved (or first) nav radio, dispatches its `input` event
+- `fetch-json.js` — GET one JSON file by path; `null` on any failure
 - `inject.js` — JSON → DOM: key = tag, shape = destination; surplus elements emptied (CSS `:empty` hides them)
 - `to-tag-name.js` — JSON key → tag name
 - `read-storage.js` / `write-storage.js` — localStorage read/write, silent on failure

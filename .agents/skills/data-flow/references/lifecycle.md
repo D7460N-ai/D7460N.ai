@@ -7,7 +7,7 @@ The fetch-to-DOM sequence for a list-rendered page (a data table). Other feature
 ```
 1. Nav radio receives input event (user click or programmatic)
 2. oninput.js handler reads suffix (e.g., 'products')
-3. fetch-json.js fetches `${BASE}products.json`
+3. fetch-json.js fetches `assets/data/products.json`
 4. fetch-json.js parses JSON: { pageTitle, rows: [...] }
 5. oninput.js writes pageTitle to <h1>
 6. oninput.js clears <ul> via clearFieldset
