@@ -52,8 +52,8 @@ The user picks the view; CSS reacts. No DOM rebuild, no JS template swap. `<tabl
 ## The pipeline
 
 ```
-1. fetch JSON          (api.js)
-2. parse to object     (api.js)
+1. fetch JSON          (fetch-json.js)
+2. parse to object     (fetch-json.js)
 3. for each row:       (oninput.js)
    a. for each key in row:
       - tag = toTagName(key)

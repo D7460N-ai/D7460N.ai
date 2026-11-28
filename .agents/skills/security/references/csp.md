@@ -44,7 +44,7 @@ style-src 'self' https://fonts.googleapis.com;
 Self-hosting fonts is preferred — it avoids the third-party CSP exception and the cross-origin request.
 
 ### `connect-src 'self' https://api.example.tld`
-`fetch()` and `XMLHttpRequest` may target the same origin and the explicitly-listed API origin. Replace `https://api.example.tld` with the actual API origin declared once in `api.js`.
+`fetch()` and `XMLHttpRequest` may target the same origin and the explicitly-listed API origin. Replace `https://api.example.tld` with the actual API origin declared once in `fetch-json.js`.
 
 ### `object-src 'none'`
 No `<object>`, `<embed>`, `<applet>`. Prevents legacy plugin-based attack vectors.

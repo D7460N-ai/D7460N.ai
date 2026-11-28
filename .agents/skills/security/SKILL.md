@@ -51,7 +51,7 @@ Cross-Origin-Resource-Policy: same-site
 Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
 ```
 
-`connect-src` is the only directive that needs project-specific tuning — replace `https://api.example.tld` with the actual API origin declared once in `api.js`.
+`connect-src` is the only directive that needs project-specific tuning — replace `https://api.example.tld` with the actual API origin declared once in `fetch-json.js`.
 
 ## CSP-compatible patterns
 

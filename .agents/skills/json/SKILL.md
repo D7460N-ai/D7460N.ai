@@ -38,7 +38,7 @@ JSON is the data layer. CSS reacts to data being there or not there. JavaScript 
 CSS does not see JSON. CSS sees the DOM that JavaScript built from the JSON. The chain is:
 
 ```
-JSON  →  api.js  →  oninput.js  →  DOM elements with content  →  CSS reacts via :empty / :has() / :not(:empty)
+JSON  →  fetch-json.js  →  oninput.js / inject.js  →  DOM elements with content  →  CSS reacts via :empty / :has() / :not(:empty)
 ```
 
 This means:

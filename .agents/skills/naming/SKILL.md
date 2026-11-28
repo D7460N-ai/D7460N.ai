@@ -32,9 +32,10 @@ The trailing-underscore convention is a build-tool-free way to mark a file as no
 | Layout | `layout.css` |
 | Typography | `typography.css` |
 | Themes | `themes.css` |
-| API transport | `api.js` |
+| API transport | `fetch-json.js` |
 | `oninput` lifecycle | `oninput.js` |
-| Storage | `storage.js` |
+| Storage | `read-storage.js`, `write-storage.js` |
+| Data injection | `inject.js` |
 
 Not:
 
@@ -42,7 +43,7 @@ Not:
 |---|---|
 | `holy-grail.css` | Implementation, not concern |
 | `dark-mode.css` | Half the concern (themes covers light + dark) |
-| `fetch-utils.js` | Implementation; `api.js` is the concern |
+| `fetch-utils.js` | Vague bucket; one function per file, named for that function (`fetch-json.js`) |
 
 ## Custom element tags
 

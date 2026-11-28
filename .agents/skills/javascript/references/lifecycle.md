@@ -1,23 +1,21 @@
 # Lifecycle
 
-The single `oninput` lifecycle that drives all CRUD operations.
+The single `oninput` lifecycle that drives all CRUD operations. Reference implementation: [`implementation/`](./implementation/).
 
 ## The full chain
 
 ```
-user clicks nav radio (or programmatic .click() on initial load)
+user selects a state-machine input (or onload.js selects one on initial load)
   ↓
-input event fires on the radio
+input event bubbles to document → document.oninput (oninput.js)
   ↓
-oninput.js handler reads the radio's index/value
+console.clear(); the control's own label text names its data file
   ↓
-api.js fetches the matching endpoint suffix
+write-storage.js saves the selection (key = the input's group name)
   ↓
-api.js parses JSON
+fetch-json.js GETs <base><name>.json and parses it
   ↓
-oninput.js routes the data to the page region
-  ↓
-oninput.js mutates DOM via createElement + textContent
+inject.js places the data into <main>: key = tag, shape = destination
   ↓
 CSS reacts via :empty / :has() / :not(:empty)
   ↓
@@ -28,76 +26,52 @@ content visible
 
 ```javascript
 // app.js
-import { initLifecycle } from './oninput.js';
+import { oninput } from "./oninput.js";
+import { onload } from "./onload.js";
 
-console.clear();
-initLifecycle();
+document.oninput = oninput;
 
-// initLifecycle then programmatically clicks the nav radio that maps to the current page,
-// entering the same lifecycle path as a user-initiated nav change.
+onload();
 ```
 
-There is one entry point, not two. The boot path and the user-action path are identical.
+`onload.js` clears the console, injects `shell.json` into `<body>`, then selects the saved (or first) nav radio and dispatches its `input` event:
+
+```javascript
+control ? (control.checked = true) : null;
+control?.dispatchEvent(new Event("input", { bubbles: true }));
+```
+
+Setting `.checked` alone does not fire `input`, and `.click()` is forbidden (AGENTS.md §5) — so this `dispatchEvent` is the single sanctioned programmatic entry. There is one entry point, not two: the boot path and the user-action path are identical.
 
 ## Binding `oninput` (no `addEventListener`)
 
+`document.oninput = oninput` is one property assignment on `document`. Every state-machine input's `input` event bubbles to it — no per-input binding, no list of inputs. Assigning again replaces, never stacks (idempotent).
+
+## Routing: the name is the association
+
 ```javascript
-// oninput.js
-import { fetchPage } from './api.js';
-
-export function initLifecycle() {
-  const radios = document.querySelectorAll('nav input[type="radio"]');
-  radios.forEach(radio => {
-    radio.oninput = handleNavChange;
-  });
-
-  // enter lifecycle via programmatic click
-  const initial = document.querySelector('nav input[type="radio"]:checked')
-    ?? document.querySelector('nav input[type="radio"]');
-  initial?.click();
-}
-
-async function handleNavChange(event) {
-  console.clear();
-  const radio = event.target;
-  const suffix = resolveSuffix(radio);
-  try {
-    const data = await fetchPage(suffix);
-    inject(data);
-    console.log(`[${new Date().toISOString()}] OK ${suffix}`);
-  } catch (err) {
-    console.error(`[${new Date().toISOString()}] FAIL ${suffix}`, err);
-  }
-}
+const route = control.closest("label")?.textContent.trim().toLowerCase();
+inject(await fetchJson(route), document.querySelector("main"));
 ```
 
-`radio.oninput = handleNavChange` is property assignment, not `addEventListener`. Idempotent — assigning a second time replaces the first, doesn't stack.
+The label text ("Home") names the data file (`home.json`). No index, no list, no lookup table.
 
 ## Shell vs. page
 
-```javascript
-// fetched once per session
-const shell = await fetchShell();
-injectShell(shell);
-
-// fetched on every nav change
-const page = await fetchPage(suffix);
-injectPage(page);
-```
-
-The shell handler is called from `initLifecycle` once. The page handler is called on every nav change.
+- Shell (`shell.json` → `<body>`): once per runtime session, from `onload.js`.
+- Page (`<name>.json` → `<main>`): every lifecycle run, from `oninput.js`.
 
 ## Idempotency
 
-A second call to `initLifecycle()` produces no change in observable behavior. A second call to a page handler with the same data produces no observable change. Functions are pure; mutations target the same DOM nodes consistently.
+Re-selecting the same input produces no observable change: the same data is injected into the same elements. Surplus elements are emptied, never removed — CSS `:empty` hides them.
 
 ## What the lifecycle never does
 
-- Never registers more than one event handler per input
+- Never registers more than one handler (`document.oninput` only)
 - Never calls `addEventListener`
-- Never tracks state in module-level variables (besides constants)
+- Never tracks state in module-level variables (constants only)
 - Never uses `setTimeout`, `setInterval`, or `requestAnimationFrame` for lifecycle progression
-- Never branches on click vs. programmatic-click — both enter through the `input` event
+- Never branches on user vs. programmatic selection — both enter through the `input` event
 
 ## Baseline & support
 
@@ -110,5 +84,5 @@ _Checked against MDN as of 2026-07-16._
 ## Reference
 
 - MDN `input` event: https://developer.mozilla.org/en-US/docs/Web/API/Element/input_event
-- MDN `HTMLElement.click()`: https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click
+- MDN `EventTarget.dispatchEvent()`: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent
 - MDN event handler properties: https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Events#using_onevent_properties

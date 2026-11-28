@@ -1,55 +1,34 @@
 # Storage
 
-`localStorage` primary. Cookie fallback when `localStorage` is unavailable. Generic, single-purpose utilities.
+`localStorage`, one key per state-machine group. Two single-purpose functions: [`implementation/read-storage.js`](./implementation/read-storage.js) and [`implementation/write-storage.js`](./implementation/write-storage.js).
 
-## The shape of `storage.js`
+## The shape
 
 ```javascript
-const COOKIE_PATH = '/';
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
+// read-storage.js
+export function readStorage(key = "") {
+  if (!key) return "";
 
-function localStorageAvailable() {
   try {
-    const test = '__storage_test__';
-    window.localStorage.setItem(test, test);
-    window.localStorage.removeItem(test);
-    return true;
+    return localStorage.getItem(key) ?? "";
   } catch {
-    return false;
+    return "";
   }
 }
 
-export function setItem(key, value) {
-  const serialized = JSON.stringify(value);
-  if (localStorageAvailable()) {
-    window.localStorage.setItem(key, serialized);
-    return;
-  }
-  document.cookie = `${encodeURIComponent(key)}=${encodeURIComponent(serialized)}; path=${COOKIE_PATH}; max-age=${COOKIE_MAX_AGE}`;
-}
+// write-storage.js
+export function writeStorage(key = "", value = "") {
+  if (!key) return;
 
-export function getItem(key) {
-  if (localStorageAvailable()) {
-    const raw = window.localStorage.getItem(key);
-    return raw == null ? null : JSON.parse(raw);
-  }
-  const match = document.cookie
-    .split('; ')
-    .find(row => row.startsWith(`${encodeURIComponent(key)}=`));
-  if (!match) return null;
-  return JSON.parse(decodeURIComponent(match.split('=')[1]));
-}
-
-export function removeItem(key) {
-  if (localStorageAvailable()) {
-    window.localStorage.removeItem(key);
-    return;
-  }
-  document.cookie = `${encodeURIComponent(key)}=; path=${COOKIE_PATH}; max-age=0`;
+  try {
+    localStorage.setItem(key, value);
+  } catch {  }
 }
 ```
 
-Three functions: `setItem`, `getItem`, `removeItem`. JSON-serialized values. `localStorage` first, cookie fallback if unavailable (private browsing, storage quota, restricted contexts).
+Key = the input's group name (`"nav"`, `"color-scheme"`, ...). Value = the selected control's name (its label text). Plain strings — no serialization needed.
+
+Silent on failure by design: storage is unavailable in some privacy modes and must never break the UI. A failed read returns `""`, so `onload.js` falls back to the first control.
 
 ## Sensitive data
 
@@ -60,7 +39,7 @@ Never store secrets, tokens, or session credentials in `localStorage`. The brows
 - Never stores HTML or DOM references
 - Never stores JavaScript functions
 - Never stores secrets
-- Never silently swallows JSON parse errors (they throw — caller handles)
+- Never breaks the UI when storage is unavailable
 
 ## Baseline & support
 
@@ -68,10 +47,9 @@ _Checked against MDN as of 2026-07-16._
 
 - `localStorage` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 
-**AutoCSS Architecture:** serves the `localStorage`-primary / cookie-fallback storage utilities. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the per-group `localStorage` read/write utilities. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
 
 ## Reference
 
 - MDN `localStorage`: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
-- MDN `document.cookie`: https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie
 - MDN cookie security: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#security

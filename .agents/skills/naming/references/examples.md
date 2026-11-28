@@ -13,9 +13,9 @@ Concrete good and bad names for each kind of named thing in the architecture.
 | `transitions.css` | `animations.css` | Different concept; transitions are state-driven |
 | `inputs.css` | `forms.css` | Forms include layout and validation; inputs is the field-control concern |
 | `state-machines.css` | `checkboxes.css` | Implementation in the name |
-| `api.js` | `fetch-utils.js` | Implementation; the concern is "API transport" |
+| `fetch-json.js` | `fetch-utils.js` | Vague bucket; one function per file, named for that function |
 | `oninput.js` | `event-handlers.js` | The architecture has one event lifecycle; the file name names it directly |
-| `storage.js` | `local-storage.js` | The concern survives a switch between localStorage and another mechanism |
+| `read-storage.js` / `write-storage.js` | `local-storage.js` | The concern survives a switch between localStorage and another mechanism |
 | `app.js` | `main.js` | "Main" is generic; "app" matches the project's role |
 
 ## Active vs. inactive marker

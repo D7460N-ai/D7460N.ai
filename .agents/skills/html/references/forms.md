@@ -32,7 +32,7 @@
 </form>
 ```
 
-- `<form>` carries the form. It does not need an `action` if submission is handled by the `oninput` lifecycle (CRUD via `api.js`).
+- `<form>` carries the form. It does not need an `action` if submission is handled by the `oninput` lifecycle (CRUD via `fetch-json.js` and its sibling write functions).
 - `<fieldset>` groups related fields. Always use one.
 - `<legend>` titles the group. The accessibility tree announces it as the group name.
 - `<label>` wraps each input. The implicit association (label-as-parent) provides the accessible name without a `for` attribute.

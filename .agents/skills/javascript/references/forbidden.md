@@ -32,7 +32,7 @@ Every pattern listed here is prohibited. The reasoning attaches each prohibition
 | `element.setAttribute('class', '...')` | Same. |
 | `element.setAttribute('data-X', '...')` | `data-*` doesn't exist in this architecture. |
 
-The two permitted utilities — `removeInlineStyles` and `clearFieldset` — exist for unavoidable browser default cleanup. No others.
+Data placement uses text nodes, `<template>` clones, and allow-listed attributes — see `inject.js` in [`implementation/`](./implementation/). `removeInlineStyles` and `clearFieldset` remain permitted for unavoidable browser-default cleanup.
 
 ## State
 

@@ -14,10 +14,11 @@ export async function oninput(event) {
 
   if (!group || !route) return;
 
+  console.clear();
   writeStorage(group, route);
 
   inject(
-    await fetchJson(`assets/data/${route}.json`),
+    await fetchJson(route),
     document.querySelector("main")
   );
 }

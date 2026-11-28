@@ -1,77 +1,49 @@
 # API
 
-The single transport surface. Base URL declared once. Endpoint suffix varies per page. JSON in, JSON out. Errors thrown, not swallowed.
+The single transport surface: [`implementation/fetch-json.js`](./implementation/fetch-json.js). Base declared once. Only the name (endpoint suffix) varies. JSON in, parsed data out.
 
-## The shape of `api.js`
+## The shape of `fetch-json.js`
 
 ```javascript
-const API_BASE = 'https://api.example.tld';
+const BASE = "assets/data/";
 
-const ENDPOINTS = {
-  shell: '/shell',
-  home: '/home',
-  about: '/about',
-  products: '/products',
-  events: '/events',
-  contact: '/contact',
-};
+export async function fetchJson(name = "") {
+  if (!name) return null;
 
-export async function fetchJSON(url, opts = {}) {
-  const res = await fetch(url, {
-    ...opts,
-    headers: { 'Accept': 'application/json' },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-}
+  const path = `${BASE}${name}.json`;
 
-export function fetchShell() {
-  return fetchJSON(`${API_BASE}${ENDPOINTS.shell}`);
-}
+  try {
+    const response = await fetch(path);
 
-export function fetchPage(suffix) {
-  const path = ENDPOINTS[suffix];
-  if (!path) throw new Error(`Unknown endpoint suffix: ${suffix}`);
-  return fetchJSON(`${API_BASE}${path}`);
+    if (!response.ok) {
+      console.error(`${new Date().toISOString()} FAIL ${path}`, response.status, response.statusText, response);
+      return null;
+    }
+
+    const data = await response.json();
+    console.log(`${new Date().toISOString()} OK ${path}`);
+    return data;
+  } catch (error) {
+    console.error(`${new Date().toISOString()} FAIL ${path}`, error);
+    return null;
+  }
 }
 ```
 
-`API_BASE` is declared once. `ENDPOINTS` is the only mapping from page name to URL path. New pages add an entry to `ENDPOINTS`, nothing else.
+`BASE` is declared once, here. Callers pass only the name: `fetchJson("shell")`, `fetchJson(route)`. A remote API changes `BASE` (and the `.json` suffix if its paths differ) — nothing else.
 
 ## Error handling
 
-Failures throw. The caller catches in the lifecycle handler and logs verbosely:
-
-```javascript
-try {
-  const data = await fetchPage(suffix);
-  inject(data);
-  console.log(`[${new Date().toISOString()}] OK ${suffix}`);
-} catch (err) {
-  console.error(`[${new Date().toISOString()}] FAIL ${suffix}`, err);
-}
-```
-
-The error reaches the user via the console. The architecture does not invent fallback data, redirect to a local mock, or retry against a different endpoint. See the `architecture` skill's "External service failures" rule.
+Success logs one minimal timestamped line. Failure logs verbosely (status, status text, response, or the thrown error) and returns `null`; `inject(null)` is a no-op. The architecture does not invent fallback data, redirect to a local mock, or retry against a different endpoint (AGENTS.md §8).
 
 ## CRUD verbs
 
-`fetchJSON` is GET-shaped. For POST / PUT / PATCH / DELETE, pass options:
+`fetchJson` is GET. For POST / PUT / PATCH / DELETE, add one function per file (e.g. `post-json.js`) that reuses the same base — export `BASE` from `fetch-json.js` and import it; never declare a second base. Never a class.
 
-```javascript
-fetchJSON(url, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(payload),
-});
-```
+## What transport never does
 
-Keep the function signature minimal. If a project needs a higher-level wrapper, add it as a single named function (e.g., `postJSON`) — never via a class.
-
-## What `api.js` never does
-
-- Never has multiple `API_BASE` declarations
-- Never inlines the URL into call sites (always go through the resolver)
+- Never has more than one base declaration
+- Never inlines the base into call sites
 - Never silently retries
 - Never mocks data
 - Never touches the DOM
@@ -85,7 +57,7 @@ _Checked against MDN as of 2026-07-16._
 - `Response.ok` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
 - `Response.json()` — **Baseline Widely available** — https://developer.mozilla.org/en-US/docs/Web/API/Response/json
 
-**AutoCSS Architecture:** serves the single API transport surface — fetch base URL, endpoint-suffix resolution, JSON parsing, and error handling. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
+**AutoCSS Architecture:** serves the single API transport surface — base declared once, name-only suffix, JSON parsing, and error handling. Canonical rules: https://github.com/D7460N-ai/D7460N.ai/blob/main/AGENTS.md
 
 ## Reference
 

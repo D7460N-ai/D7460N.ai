@@ -27,9 +27,9 @@ One function per file, named for what it does. **No limit on the number of files
 **Reference implementation (canonical, copy-paste):** [`references/implementation/`](./references/implementation/)
 
 - `app.js` — router: `document.oninput = oninput`, then `onload()`
-- `oninput.js` — the single lifecycle: label text → `assets/data/<name>.json` → `inject()` into `main`; saves the selection
-- `onload.js` — injects `shell.json`, selects the saved (or first) nav radio, dispatches its `input` event
-- `fetch-json.js` — GET one JSON file; `null` on any failure
+- `oninput.js` — the single lifecycle: `console.clear()`, label text → `fetchJson(name)` → `inject()` into `main`; saves the selection
+- `onload.js` — `console.clear()`, injects `shell.json`, selects the saved (or first) nav radio, dispatches its `input` event
+- `fetch-json.js` — declares the data base once; GET `<base><name>.json`; timestamped success/failure logging; `null` on any failure
 - `inject.js` — JSON → DOM: key = tag, shape = destination; surplus elements emptied (CSS `:empty` hides them)
 - `to-tag-name.js` — JSON key → tag name
 - `read-storage.js` / `write-storage.js` — localStorage read/write, silent on failure
@@ -113,7 +113,7 @@ _Checked against MDN as of 2026-07-16._
 - `references/implementation/` — the canonical reference implementation (8 files)
 - `references/lifecycle.md` — the canonical `oninput` flow from input event to data injection
 - `references/api.md` — fetch, base URL, suffix, error handling
-- `references/storage.md` — localStorage and cookie patterns
+- `references/storage.md` — per-group localStorage read/write
 - `references/forbidden.md` — full list of forbidden patterns with reasoning
 - MDN JavaScript: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 - MDN Fetch API: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
