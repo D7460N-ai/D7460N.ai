@@ -15,12 +15,13 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | R5 | Every project is a browser-native SPA: one page, SPA tabs only, zero routing to other pages. |
 | R6 | Every project is a browser-native PWA. |
 | R7 | All HTML structure is pre-delivered (JAMstack). |
-| R8 | Air-gapped SOC: presentation layer vs data layer; between native browser languages. |
+| R8 | Air-gapped SOC: presentation layer vs data layer; between native browser languages (JS uses CSS selectors and their logic to select elements). |
 | R9 | Reduce complexity and maintenance. Adding code adds both. |
 | R10 | Refactor existing code (without breaking) before writing new code. |
 | R11 | Abstraction: rarely, if ever. |
 | R12 | Each HTML, CSS, JS module independent and copy/paste-able. |
 | R13 | No destructive actions. Archive only on user approval, after this list is proven on small test projects. |
+| R14 | Least Power: HTML first, then CSS. CSS always preferred over JS; replace JS with CSS unless there are qualifying circumstances (state them). Least JS possible. |
 
 ## B. Behavior (every reply)
 | # | Allowed |
@@ -84,6 +85,8 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | J3 | `oninput`: a user's selection fires `input` natively — no JS fires it (sole exception: J2 on load). One line in JS connects the function: `document.oninput = oninput`. Never an `oninput` attribute in HTML. `oninput` saves the selected radio's position to browser memory, then fetches `assets/data/NNN.json` for that position (3 digits: `001`, `002` …). |
 | J4 | Events: only `input`. Exception (P6): `sw.js` may use `self.oninstall`, `self.onactivate`, `self.onfetch`. All other JS events prohibited unless noted per feature. |
 | J5 | API base URL declared once; only suffix varies. Failed fetch → detailed console error; no fallback, no mock. |
+| J6 | Reach elements with CSS selector syntax and logic (`querySelector`, `querySelectorAll`, `closest`, `matches`) as much as possible. JS node-walking (e.g. `parentNode`, `childNodes`) only where CSS can't do it, with the justification in a code comment beside it. Never `getElementById` or `getElementsBy…`. |
+| J7 | No JS DOM manipulation (hard rule). Sole exception: adding or removing HTML that the data requires and that isn't already in the page, e.g. `ul`/`li` table rows, nav labels and their radio inputs, dropdown-menu items, content paragraphs. Never `innerHTML` (HTML in JS), never inline styles, never JS-driven presentation. |
 
 ## D. JSON
 | # | Allowed |
