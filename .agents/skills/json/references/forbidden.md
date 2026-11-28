@@ -111,7 +111,7 @@ The number of columns adapts to container width automatically.
 
 **Replacement:** Use the semantic element and a state attribute that the CSS reads via `:has()`:
 ```html
-<label role="button">
+<label>
   Save
   <input type="checkbox" aria-hidden="true" />
 </label>

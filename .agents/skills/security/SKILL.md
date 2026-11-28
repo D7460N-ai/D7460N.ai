@@ -60,7 +60,7 @@ These patterns are what the architecture already produces. They are listed here 
 **HTML** — no inline event handlers, no `style` attribute:
 
 ```html
-<label role="button" aria-label="Save">
+<label>
   Save
   <input type="checkbox" aria-hidden="true" />
 </label>

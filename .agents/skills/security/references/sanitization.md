@@ -57,12 +57,12 @@ This pattern is forbidden architecturally. If a use case genuinely requires rend
 
 1. Document the exception in the project's security notes.
 2. Define the allowlist of permitted elements and attributes at the integration boundary.
-3. Use a battle-tested sanitizer at the boundary (DOMPurify, or the upcoming HTML Sanitizer API where supported).
+3. Use the browser-native HTML Sanitizer API at the boundary — never a third-party library. Where the native API is unavailable, do not render HTML: fall back to text injection (`textContent`).
 4. Never call `innerHTML` outside that boundary.
 
 ## HTML Sanitizer API (modern browsers)
 
-When supported, the native sanitizer is preferred over a third-party library:
+The native sanitizer is the only sanitizer (no third-party dependencies):
 
 ```javascript
 const sanitized = element.setHTMLUnsafe(trustedHTML, {
@@ -103,7 +103,7 @@ A custom property declared via `setProperty` is treated as a value, not as a str
 ## What sanitization never does
 
 - Never relies on regex-based "stripping" of HTML
-- Never builds a "safe" subset by hand without a sanitizer library or the native API
+- Never builds a "safe" subset by hand without the native API
 - Never trusts a value from the network without explicit allowlist checks at the boundary
 - Never uses `eval` or `new Function` on data
 
@@ -123,5 +123,4 @@ _Checked against MDN as of 2026-07-16._
 - MDN `Element.setAttribute()`: https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute
 - MDN HTML Sanitizer API: https://developer.mozilla.org/en-US/docs/Web/API/HTML_Sanitizer_API
 - W3C Trusted Types: https://www.w3.org/TR/trusted-types/
-- DOMPurify (when native sanitizer is unavailable): https://github.com/cure53/DOMPurify
 - OWASP XSS prevention cheat sheet: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html

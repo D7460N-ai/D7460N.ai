@@ -5,15 +5,13 @@ The HTML side of the state-machine pattern. The CSS side is in `../../css/refere
 ## Form-action button substitute
 
 ```html
-<label role="button" aria-label="Save">
+<label>
   Save
   <input type="checkbox" aria-hidden="true" />
 </label>
 ```
 
-- `<label>` is the interactive element. It carries the role and accessible name.
-- `role="button"` tells assistive technology this control is button-like. ARIA `role` conveys **semantics only — it does not make the label focusable or add keyboard activation** (a common misconception). Reliable keyboard operability for this pattern is a known, deferred a11y item; do not rely on `role` to provide it.
-- `aria-label` provides the accessible name when the label text is short or stylized.
+- `<label>` supplies the accessible name (its text). Never `role="button"` on it (AGENTS.md §3): the button role makes every descendant presentational, erasing the input role and checked state.
 - `<input type="checkbox">` holds the state.
 - `aria-hidden="true"` removes the input from the accessibility tree (the label already conveys the role and state).
 
@@ -42,7 +40,7 @@ The HTML side of the state-machine pattern. The CSS side is in `../../css/refere
 ## Toggle (single binary state)
 
 ```html
-<label role="button" aria-label="Toggle theme">
+<label>
   Theme
   <input type="checkbox" aria-hidden="true" />
 </label>

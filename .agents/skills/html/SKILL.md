@@ -68,7 +68,7 @@ Interactive elements that are not intrinsically interactive (like `<button>`) us
 **Form actions** use checkboxes:
 
 ```html
-<label role="button" aria-label="Save">
+<label>
   Save
   <input type="checkbox" aria-hidden="true" />
 </label>
@@ -90,16 +90,16 @@ The `aria-hidden="true"` keeps the input out of the accessibility tree; the labe
 
 ## Disabled state
 
-Disabled state on interactive elements is conveyed with `aria-disabled` (assistive-tech aware) and styled by CSS via `[aria-disabled="true"]`. The native `disabled` attribute is used only on form controls where the browser-supplied disabled semantic exactly matches the intent.
+Disabled state on the label/input pattern uses the input's native `disabled` attribute — the `<input>` is the control, and native `disabled` is the browser-supplied semantic. `aria-disabled` is only for elements not allowed a native `disabled` attribute, and never on an element that also has `disabled` ([ARIA in HTML](https://www.w3.org/TR/html-aria/)). Never `role="button"` on the label (AGENTS.md §3).
 
 ```html
-<label role="button" aria-disabled="true" aria-label="Save">
+<label>
   Save
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" disabled />
 </label>
 ```
 
-CSS reads via `[aria-disabled="true"]` and applies the disabled appearance.
+CSS reads via `label:has(> input:disabled)` and applies the disabled appearance.
 
 ## The canonical shell
 

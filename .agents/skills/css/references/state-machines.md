@@ -7,7 +7,7 @@ CSS reads native input state via `:has()` and `:checked`. No JavaScript. The pat
 A button-like control:
 
 ```html
-<label role="button" aria-label="Save">
+<label>
   Save
   <input type="checkbox" aria-hidden="true" />
 </label>
@@ -17,13 +17,13 @@ CSS reacts:
 
 ```css
 @layer state {
-  label[role="button"]:has(input:checked) {
+  label:has(> input[type="checkbox"]:checked) {
     /* the active visual state */
   }
 }
 ```
 
-The hidden checkbox holds the state. The label provides the accessible name and role. CSS reads the state via `:has()`.
+The hidden checkbox holds the state. The label provides the accessible name; the input keeps its native role and state. CSS reads the state via `:has()`.
 
 ## The navigation pattern
 
@@ -78,7 +78,7 @@ The radio name (`name="nav"`) groups the inputs so only one is checked at a time
 
 The input is hidden visually but **remains focusable** — the label provides the visible control while the real radio/checkbox still receives keyboard focus and holds `:checked`. Do **not** use `display: none` here: it removes the input from the tab order, so a keyboard or AT user can no longer toggle the state.
 
-> **Open a11y nuance to resolve:** `aria-hidden="true"` on a *focusable* input is itself an ARIA anti-pattern (a focusable element should not be hidden from the accessibility tree). The label carries `role="button"` + `aria-label`. Whether the input should keep `aria-hidden`, or the accessible name/role should move entirely to the label with the input exposed, is a pattern-level decision worth confirming — flagged, not silently changed.
+> **Open a11y nuance to resolve:** `aria-hidden="true"` on a *focusable* input is itself an ARIA anti-pattern (a focusable element should not be hidden from the accessibility tree). Whether the input should keep `aria-hidden`, or the accessible name/role should move entirely to the label with the input exposed, is a pattern-level decision worth confirming — flagged, not silently changed.
 
 ## Why this pattern instead of a button
 
@@ -92,7 +92,7 @@ The input is hidden visually but **remains focusable** — the label provides th
 Use multiple checkboxes inside the same label for multi-state controls. Or radios with more than two options.
 
 ```html
-<label role="button">
+<label>
   <input type="radio" name="mode" value="view" aria-hidden="true" checked />
   <input type="radio" name="mode" value="edit" aria-hidden="true" />
   <input type="radio" name="mode" value="delete" aria-hidden="true" />

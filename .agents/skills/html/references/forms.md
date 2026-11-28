@@ -24,7 +24,7 @@
       <textarea name="message" required></textarea>
     </label>
 
-    <label role="button" aria-label="Send">
+    <label>
       Send
       <input type="checkbox" aria-hidden="true" />
     </label>
@@ -58,11 +58,11 @@ Forms with logical sub-groups use multiple `<fieldset>`s:
 
   <fieldset>
     <legend>Actions</legend>
-    <label role="button" aria-label="Send">
+    <label>
       Send
       <input type="checkbox" aria-hidden="true" />
     </label>
-    <label role="button" aria-label="Cancel">
+    <label>
       Cancel
       <input type="checkbox" aria-hidden="true" />
     </label>
