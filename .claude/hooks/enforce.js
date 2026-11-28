@@ -199,7 +199,10 @@ function sessionStart(j) {
   try { fs.writeFileSync(baselineFile(j.session_id), JSON.stringify(seen)); } catch {}
   const notes = [];
   const global = read(path.join(os.homedir(), ".claude", "CLAUDE.md"));
-  if (!global || !global.includes("@~/D7460N.ai/.agents/WHITELIST.md") || !read(path.join(os.homedir(), "D7460N.ai", ".agents", "WHITELIST.md"))) notes.push("WARNING: ~/.claude/CLAUDE.md does not import ~/D7460N.ai/.agents/WHITELIST.md. Canon is NOT loaded. Tell the owner now.");
+  // Web sessions (CLAUDE_CODE_REMOTE=true) get the whitelist from repo hooks, not ~/.claude/CLAUDE.md.
+  const remote = process.env.CLAUDE_CODE_REMOTE === "true";
+  if (!read(path.join(os.homedir(), "D7460N.ai", ".agents", "WHITELIST.md"))) notes.push("WARNING: ~/D7460N.ai/.agents/WHITELIST.md is missing. Canon is NOT loaded. Tell the owner now.");
+  else if (!remote && (!global || !global.includes("@~/D7460N.ai/.agents/WHITELIST.md"))) notes.push("WARNING: ~/.claude/CLAUDE.md does not import ~/D7460N.ai/.agents/WHITELIST.md. Canon is NOT loaded at session start. Tell the owner now.");
   if (read(path.join(cwd, ".agents", "SESSION-HANDOFF.md")) != null) notes.push("Read the entire .agents/SESSION-HANDOFF.md and re-assert its Constraint Lock before any implementation decision.");
   if (j.source === "compact") notes.push("Context was compacted. Re-read .agents/WHITELIST.md in full before continuing.");
   if (notes.length) out({ hookSpecificOutput: { hookEventName: "SessionStart", additionalContext: notes.join("\n") } });
