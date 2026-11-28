@@ -26,7 +26,7 @@ const ARIA = words("aria-label aria-live aria-disabled aria-hidden"); // H4
 const AT_RULES = words("layer container media supports property function starting-style font-face keyframes scope import"); // C4 C8 C13 C7 C2 S2 C11 R4
 const EVENTS = words("input"); // J4
 const SW_EVENTS = words("install activate fetch"); // P6
-const ORIGINS = ["https://autocss-com.github.io/", "https://fonts.googleapis.com/", "https://fonts.gstatic.com/"]; // R4 (+ Google Fonts)
+const ORIGINS = ["https://autocss-com.github.io/cdn/", "https://fonts.googleapis.com/", "https://fonts.gstatic.com/"]; // R4: shared cdn only (V2 ruled B) + Google Fonts
 const EXTENSIONS = words(".html .css .js .json");
 const SKIP = /\/(node_modules|\.git|\.claude|test|_archived)\/|_\.[a-z]+$|(^|\/)package(-lock)?\.json$/;
 
