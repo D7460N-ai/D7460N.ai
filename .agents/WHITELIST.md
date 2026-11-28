@@ -79,9 +79,9 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 ## J. JS — three stand-alone, independent, reusable functions
 | # | Allowed |
 |---|---|
-| J1 | `check`: on load, reads browser memory for the nav radio selected last session. |
-| J2 | `set`: selects the radio `check` found; none → first nav radio. Then dispatches `new Event("input", { bubbles: true })` on it, so its own `oninput` runs. This is the only event JS fires, and only on load. |
-| J3 | `oninput`: a user's selection fires `input` natively — no JS fires it (sole exception: J2 on load). One line in JS connects the function: `document.oninput = oninput`. Never an `oninput` attribute in HTML. `oninput` saves the selection to browser memory, then fetches that radio's JSON content. |
+| J1 | `check`: on load, reads browser memory for the position of the nav radio selected last session. Identity = position among the nav radios (page order, any nesting, found with `querySelectorAll`). Tab text is for people only, never an identity; no `value`. |
+| J2 | `set`: selects the radio at that position; none or out of range → first nav radio. Then dispatches `new Event("input", { bubbles: true })` on it, so its own `oninput` runs. This is the only event JS fires, and only on load. |
+| J3 | `oninput`: a user's selection fires `input` natively — no JS fires it (sole exception: J2 on load). One line in JS connects the function: `document.oninput = oninput`. Never an `oninput` attribute in HTML. `oninput` saves the selected radio's position to browser memory, then fetches `assets/data/NNN.json` for that position (3 digits: `001`, `002` …). |
 | J4 | Events: only `input`. Exception (P6): `sw.js` may use `self.oninstall`, `self.onactivate`, `self.onfetch`. All other JS events prohibited unless noted per feature. |
 | J5 | API base URL declared once; only suffix varies. Failed fetch → detailed console error; no fallback, no mock. |
 
@@ -110,8 +110,6 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 ## Open — not ruled by the user
 | # | Item | Fact on record |
 |---|---|---|
-| O4 | Restore identity | User's code restores by radio `value`; earlier user statement: "you don't even need an HTML value." Radios without `value` all report `"on"`. |
-| O5 | `querySelectorAll` | Not in J; the validator blocks it. |
 | P4 | `<template>` pool + `pool.html` | Keep for now; investigate (security, custom elements). |
 | P5 | `<app-notice>` + `showPopover()` | Preserve for now; investigate. |
 | P8 | Wildcard `*` transitions (cdn `transitions.css`) | Investigate. |
