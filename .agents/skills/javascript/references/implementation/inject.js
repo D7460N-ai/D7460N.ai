@@ -15,6 +15,9 @@ const ATTRIBUTES = ["src", "alt"];
 
 // Set visible text without disturbing nested elements — state-machine
 // inputs live inside labels and must survive every injection.
+// JS node-walking (childNodes) justified: CSS selectors match elements only
+// ("a particular pattern of element(s)", W3C Selectors 4), so text nodes
+// cannot be reached with CSS.
 function setText(el, text = "") {
   for (const node of [...el.childNodes]) {
     node.nodeType === Node.TEXT_NODE ? el.removeChild(node) : null;
@@ -26,7 +29,8 @@ function setText(el, text = "") {
 function slots(scope, tag, needed) {
   const found = [...scope.querySelectorAll(tag)];
   const proto = document.querySelector("template")?.content?.querySelector(tag);
-  const parent = found.at(-1)?.parentNode ?? scope;
+  // Parent via CSS: the nearest ancestor that has this element as a direct child.
+  const parent = found.at(-1)?.closest(":has(> :scope)") ?? scope;
 
   while (proto && found.length < needed) {
     found.push(parent.appendChild(proto.cloneNode(true)));

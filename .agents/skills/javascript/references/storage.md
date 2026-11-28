@@ -26,7 +26,7 @@ export function writeStorage(key = "", value = "") {
 }
 ```
 
-Key = the input's group name (`"nav"`, `"color-scheme"`, ...). Value = the selected control's name (its label text). Plain strings — no serialization needed.
+Key = the input's group name (`"nav"`, `"color-scheme"`, ...). Value = the selected control's position among its group (e.g. `"3"`). Plain strings — no serialization needed.
 
 Silent on failure by design: storage is unavailable in some privacy modes and must never break the UI. A failed read returns `""`, so `onload.js` falls back to the first control.
 

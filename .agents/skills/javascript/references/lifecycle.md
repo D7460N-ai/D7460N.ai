@@ -9,11 +9,11 @@ user selects a state-machine input (or onload.js selects one on initial load)
   ↓
 input event bubbles to document → document.oninput (oninput.js)
   ↓
-the control's own label text names its data file
+the control's position among its group (page order) is its identity
   ↓
 write-storage.js saves the selection (key = the input's group name)
   ↓
-fetch-json.js GETs assets/data/<name>.json and parses it
+fetch-json.js GETs assets/data/NNN.json (position, 3 digits) and parses it
   ↓
 inject.js places the data into <main>: key = tag, shape = destination
   ↓
@@ -47,22 +47,26 @@ Setting `.checked` alone does not fire `input`, and `.click()` is forbidden (AGE
 
 `document.oninput = oninput` is one property assignment on `document`. Every state-machine input's `input` event bubbles to it — no per-input binding, no list of inputs. Assigning again replaces, never stacks (idempotent).
 
-## Routing: the name is the association
+## Routing: position is the identity
 
 ```javascript
-const route = control.closest("label")?.textContent.trim().toLowerCase();
+const controls = [...document.querySelectorAll(`input[name="${group}"]`)];
+const position = controls.indexOf(control) + 1;
+
+writeStorage(group, String(position));
+
 inject(
-  await fetchJson(`assets/data/${route}.json`),
+  await fetchJson(`assets/data/${String(position).padStart(3, "0")}.json`),
   document.querySelector("main")
 );
 ```
 
-The label text ("Home") names the data file (`home.json`). No index, no list, no lookup table.
+The 3rd radio in page order loads `003.json`, wherever it is nested. Tab text ("Home") is for people only.
 
 ## Shell vs. page
 
 - Shell (`shell.json` → `<body>`): once per runtime session, from `onload.js`.
-- Page (`<name>.json` → `<main>`): every lifecycle run, from `oninput.js`.
+- Page (`NNN.json` → `<main>`): every lifecycle run, from `oninput.js`.
 
 ## Idempotency
 

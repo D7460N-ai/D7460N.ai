@@ -21,7 +21,7 @@ export async function fetchJson(path = "") {
 }
 ```
 
-Callers pass the full path: `fetchJson("assets/data/shell.json")` (`onload.js`), `` fetchJson(`assets/data/${route}.json`) `` (`oninput.js`).
+Callers pass the full path: `fetchJson("assets/data/shell.json")` (`onload.js`), `` fetchJson(`assets/data/${String(position).padStart(3, "0")}.json`) `` (`oninput.js`).
 
 ## Error handling
 

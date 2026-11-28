@@ -27,8 +27,8 @@ One function per file, named for what it does. **No limit on the number of files
 **Reference implementation (canonical, copy-paste):** [`references/implementation/`](./references/implementation/)
 
 - `app.js` — router: `document.oninput = oninput`, then `onload()`
-- `oninput.js` — the single lifecycle: label text → `` fetchJson(`assets/data/<name>.json`) `` → `inject()` into `main`; saves the selection
-- `onload.js` — injects `assets/data/shell.json`, selects the saved (or first) nav radio, dispatches its `input` event
+- `oninput.js` — the single lifecycle: the selected radio's position among its group (page order, any nesting) → saves it → `` fetchJson(`assets/data/NNN.json`) `` (3 digits) → `inject()` into `main`
+- `onload.js` — injects `assets/data/shell.json`, selects the radio at the saved position (none or out of range → first), dispatches its `input` event
 - `fetch-json.js` — GET one JSON file by path; `null` on any failure
 - `inject.js` — JSON → DOM: key = tag, shape = destination; surplus elements emptied (CSS `:empty` hides them)
 - `to-tag-name.js` — JSON key → tag name
@@ -36,13 +36,10 @@ One function per file, named for what it does. **No limit on the number of files
 
 ## Only these patterns for DOM access
 
-- **`document.querySelector('selector')`** — the only permitted selector method
+- **Reach elements with CSS selector syntax and logic** (`querySelector`, `querySelectorAll`, `closest`, `matches`) as much as possible. JS node-walking (e.g. `childNodes`) only where CSS can't do it, with the justification in a code comment beside it (AGENTS.md §5).
 
 Forbidden:
-- `document.getElementById()`
-- `document.getElementsByClassName()` (and there are no classes anyway)
-- `document.getElementsByTagName()`
-- `document.querySelectorAll()` is permitted only when iterating a known set; prefer `querySelector` chaining
+- `getElementById()`, `getElementsByClassName()`, `getElementsByTagName()`, `getElementsByName()`
 - jQuery, `$()`, any third-party DOM library
 
 ## Only these patterns for events
@@ -74,7 +71,7 @@ Also permitted where CSS cannot reach a browser default:
 - The API base URL is declared **once**. Only the endpoint suffix varies per page (`shell`, `home`, `about`, `products`, `events`, `contact`).
 - Initial page load enters the same `oninput` lifecycle by selecting the saved (or first) nav radio, setting `checked = true`, and dispatching `new Event("input", { bubbles: true })` (AGENTS.md §5; `onload.js`). Never `.click()`. There is no separate "boot" path.
 - Shell content (header, nav, footer, meta) is fetched and injected once per runtime session, not on every page change.
-- The control's own label text names its data file — no index, no list, no lookup (`oninput.js`). The same DOM targets are reused for content injection.
+- The selected radio's position among its group (page order, any nesting) is its identity and names its data file: 3rd → `003.json` (`oninput.js`). Tab text is for people only. The same DOM targets are reused for content injection.
 - `console.clear()` runs on startup and on each lifecycle run.
 
 ## Console policy
