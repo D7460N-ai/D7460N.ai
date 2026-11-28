@@ -21,8 +21,8 @@ const ELEMENTS = words(`
   time mark abbr cite code pre blockquote q strong em small sub sup br hr wbr
   app-container app-banner app-logo app-user app-legal app-version`); // H2 H3
 const ARIA = words("aria-label aria-live aria-disabled aria-hidden"); // H4
-const AT_RULES = words("layer container media supports property function starting-style font-face"); // C4 C8 C13 C7 C2 S2
-const PSEUDO_CLASSES = words("checked has not empty focus-visible user-valid user-invalid disabled popover-open root"); // C5 C9
+const AT_RULES = words("layer container media supports property function starting-style font-face keyframes scope"); // C4 C8 C13 C7 C2 S2 C11
+const PSEUDO_CLASSES = words("checked has not empty focus-visible user-valid user-invalid disabled popover-open root hover where is"); // C5 C9
 const EVENTS = words("input"); // J4
 const SW_EVENTS = words("install activate fetch"); // P6
 const ORIGINS = ["https://autocss-com.github.io/"]; // R4: the only remote origin
@@ -94,7 +94,8 @@ function htmlProblems(text) {
     if (close) continue;
 
     for (const attr of attrNames(attrs)) {
-      if (notAllowedAttr(attr)) out.push(`H4 attribute not on list: ${attr} (on <${name}>)`);
+      const listRole = attr === "role" && name === "ul" && /\brole\s*=\s*["']?list\b/i.test(attrs); // H4
+      if (notAllowedAttr(attr) && !listRole) out.push(`H4 attribute not on list: ${attr} (on <${name}>)`);
     }
     if (name !== "a") {
       for (const [, url] of attrs.matchAll(/\b(?:src|href|srcset)\s*=\s*["']?([^"'\s>]+)/gi)) {
@@ -148,7 +149,7 @@ function cssProblems(text, file) {
     if (!AT_RULES.has(rule.toLowerCase())) out.push(`C at-rule not on list: @${rule}`);
   }
 
-  const stem = path.basename(file, ".css");
+  const stem = path.basename(file, ".css").replace(/^color-theme-.+$/, "color-theme"); // C4 theme files
   const layers = [...css.matchAll(/@layer\b([^{;]*)([{;])/g)];
   if (layers.length !== 1 || layers[0][2] !== "{" || layers[0][1].trim() !== stem) {
     out.push(`C4 file must be exactly one @layer ${stem} { … }`);
@@ -181,7 +182,6 @@ function cssProblems(text, file) {
 function selectorProblems(sel, out) {
   if (/(^|[\s>+~,(])\.-?[a-z_]/i.test(sel)) out.push(`C5 class selector: ${sel}`);
   if (/#[a-z_-]/i.test(sel)) out.push(`C5 id selector: ${sel}`);
-  if (/(^|[\s>+~,(])\*/.test(sel)) out.push(`C5 universal selector * (P8 pending): ${sel}`);
   for (const [, attr] of sel.matchAll(/\[\s*([\w-]+)/g)) {
     if (notAllowedAttr(attr.toLowerCase())) out.push(`C5 attribute selector not on list: [${attr}]`);
   }
@@ -200,8 +200,8 @@ function jsProblems(text, file) {
     [/\baddEventListener\b/g, "J4 addEventListener not on list"],
     [/\.click\s*\(|\bonclick\b/g, "J4 click not on list"],
     // Allowed (not listed here): querySelectorAll (J6); appendChild, removeChild,
-    // cloneNode, setAttribute, .prepend() (J7: content-wrapping HTML + data writes).
-    [/\b(?:innerHTML|outerHTML|insertAdjacent\w+|classList|className|dataset|getElementById|getElementsBy\w+|createElement|replaceChild|replaceWith|removeAttribute|toggleAttribute|showPopover|hidePopover|togglePopover|showModal|textContent|innerText|XMLHttpRequest|setTimeout|setInterval|requestAnimationFrame|eval)\b/g, "J3 API not on list"],
+    // cloneNode, setAttribute, .prepend(), textContent (J7: content-wrapping HTML + data writes).
+    [/\b(?:innerHTML|outerHTML|insertAdjacent\w+|classList|className|dataset|getElementById|getElementsBy\w+|createElement|replaceChild|replaceWith|removeAttribute|toggleAttribute|showPopover|hidePopover|togglePopover|showModal|innerText|XMLHttpRequest|setTimeout|setInterval|requestAnimationFrame|eval)\b/g, "J3 API not on list"],
     [/\.(?:append|remove|before|after)\s*\(|\.style\b|\bdocument\.write\b|\bnew\s+Function\b|\bimport\s*\(/g, "J3 API not on list"],
     [/^(?:let|var)\s+\w+/gm, "J4 module-level mutable state"],
   ];

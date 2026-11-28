@@ -53,7 +53,7 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | H1 | One `index.html` per project; line 1 `<!doctype html>`; `<meta name="color-scheme" content="dark light">`. |
 | H2 | Elements: html head body title meta link script noscript template slot · header nav main aside footer article section hgroup address search · h1–h6 p · ul ol li dl dt dd · table thead tbody tfoot tr th td caption colgroup col · form fieldset legend label input select option optgroup textarea output · figure figcaption picture source img video audio track · details summary dialog menu a · time mark abbr cite code pre blockquote q strong em small sub sup br hr wbr |
 | H3 | Custom elements: `app-container` `app-banner` `app-logo` `app-user` `app-legal` `app-version` |
-| H4 | Attributes: element's own native attributes; `aria-label`, `aria-live`, `aria-disabled`; `aria-hidden="true"` only on non-focusable decorative elements. Never IDs, classes, `data-*`. |
+| H4 | Attributes: element's own native attributes; `aria-label`, `aria-live`, `aria-disabled`; `aria-hidden="true"` only on non-focusable decorative elements; `role="list"` on `ul`. Never IDs, classes, `data-*`. |
 | H5 | Interaction: pure CSS state machines (`<label>` wrapping native radio/checkbox; input visually hidden, still focusable); native `<a href>` links; text `input`, `select`, `textarea`. |
 | H6 | Shell: `app-container` > `app-banner`, `header`(`app-logo`, `app-user`), `nav`, `main` > `article` > (`h1`, `section`), `aside`, `footer`(`app-legal`, `app-version`), `app-banner`. |
 | H7 | One `<script type="module">` before `</body>`, outside `app-container`. `<link rel="stylesheet">` order = cascade order. |
@@ -65,14 +65,14 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | C1 | CSS owns all presentation and UI state. |
 | C2 | Visibility: `display: none` ↔ `display: grid`, faded via `transition-behavior: allow-discrete` + `@starting-style`. |
 | C3 | Elements hidden by default while empty; `:not(:empty)` shows them. Gap between state-machine selection and data arrival = pure-CSS loading state (`:empty`). |
-| C4 | One concern per file; whole file in one `@layer <filename>`. |
-| C5 | Selectors: element names, native attributes, H4 `aria-*`, pseudo-elements. State: `:checked` `:has()` `:not()` `:empty` `:focus-visible` `:user-valid` `:user-invalid` `:disabled` `:popover-open` |
+| C4 | One concern per file; whole file in one `@layer <filename>`. Theme files `color-theme-<hex>.css` use `@layer color-theme`. `@scope` allowed. |
+| C5 | Selectors: element names, native attributes, H4 `aria-*`, pseudo-elements, universal `*`. State: `:checked` `:has()` `:not()` `:empty` `:focus-visible` `:user-valid` `:user-invalid` `:disabled` `:popover-open` `:hover` `:where()` `:is()` |
 | C6 | Layout: CSS Grid, implicit grid; never depends on child count/position. |
 | C7 | Sizes: `fr` `auto` `min-content` `max-content` `fit-content` `%` `rem` `em` `ch`, viewport + container units, `clamp()` `min()` `max()` `calc()`, custom properties, `@property`, `@function`, `if()`. |
 | C8 | Responsive: `@container`; media range syntax in `ch`; `prefers-*` media features. |
 | C9 | Color: `color-scheme: light dark` on `:root`; `light-dark()`; `oklch()`; system colors; `currentColor`. |
 | C10 | Logical properties. Padding/margin only on `p`, `h1`–`h6`, `label` (more on instruction). |
-| C11 | Motion: transitions on named properties; reduced under `prefers-reduced-motion`. |
+| C11 | Motion: transitions on named properties; `@keyframes` animations; reduced under `prefers-reduced-motion`. |
 | C12 | Popover/hover placement: anchor positioning. |
 | C13 | `@supports`; `content-visibility` + `contain-intrinsic-size`. |
 | C14 | Vendor prefixes only for non-Baseline features. |
@@ -86,7 +86,7 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | J4 | Events: only `input`. Exception (P6): `sw.js` may use `self.oninstall`, `self.onactivate`, `self.onfetch`. All other JS events prohibited unless noted per feature. |
 | J5 | API base URL declared once; only suffix varies. Failed fetch → detailed console error; no fallback, no mock. |
 | J6 | Reach elements with CSS selector syntax and logic (`querySelector`, `querySelectorAll`, `closest`, `matches`) as much as possible. JS node-walking (e.g. `parentNode`, `childNodes`) only where CSS can't do it, with the justification in a code comment beside it. Never `getElementById` or `getElementsBy…`. |
-| J7 | No JS DOM manipulation (hard rule). The scaffolding and layout are pre-delivered in the HTML and never change. Sole exception: a generic JS loop adds or removes only the HTML that directly wraps content, as the data requires (e.g. `ul`/`li` table rows, nav labels and their radio inputs, dropdown-menu items, content paragraphs, custom elements that wrap content), and writes data into elements (text, `src`/`alt`). Never `innerHTML` (HTML in JS), never inline styles, never JS-driven presentation. |
+| J7 | No JS DOM manipulation (hard rule). The scaffolding and layout are pre-delivered in the HTML and never change. Sole exception: a generic JS loop adds or removes only the HTML that directly wraps content, as the data requires (e.g. `ul`/`li` table rows, nav labels and their radio inputs, dropdown-menu items, content paragraphs, custom elements that wrap content), and writes data into elements (text, incl. `textContent`; `src`/`alt`). Never `innerHTML` (HTML in JS), never inline styles, never JS-driven presentation. |
 
 ## D. JSON
 | # | Allowed |
@@ -115,8 +115,6 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 |---|---|---|
 | P4 | `<template>` pool + `pool.html` | Keep for now; investigate (security, custom elements). |
 | P5 | `<app-notice>` + `showPopover()` | Preserve for now; investigate. |
-| P8 | Wildcard `*` transitions (cdn `transitions.css`) | Investigate. |
 | P9 | JSON keys / mapping content to elements / reuse vs replace / future `contentEditable` | Investigate. |
 | P3 | Data tables, forms | Later; one way only. |
-| V1 | Validator: blocked by strict list | `textContent`, `@keyframes`, `@scope`, `:where`, `:is`, `:hover`. |
 | V2 | Validator: allowed by inference | `@font-face` (self-hosted fonts, R4); remote origin `https://autocss-com.github.io/`. |
