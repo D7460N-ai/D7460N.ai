@@ -11,6 +11,9 @@ else
   text=$(curl -fsSL --max-time 5 https://raw.githubusercontent.com/D7460N-ai/D7460N.ai/main/AGENTS.md) || exit 0
 fi
 section=$(printf '%s\n' "$text" | awk '/^## (C1\.|[0-9]+\. (No Dead-Ends|Architecture Tests))/{f=1; print; next} f && /^#{1,2} /{f=0} f')
+# Whitelist M5: the full whitelist is injected with the law, every time.
+wl="$HOME/D7460N.ai/.agents/WHITELIST.md"
+[ -r "$wl" ] && section=$(printf '%s\n\n%s\n' "$section" "$(cat "$wl")")
 [ -n "$section" ] || exit 0
 esc=$(printf '%s\n' "$section" | awk 'BEGIN{ORS=""} {gsub(/\r/,""); gsub(/\\/,"\\\\"); gsub(/"/,"\\\""); gsub(/\t/,"\\t"); print $0 "\\n"}')
 printf '{"hookSpecificOutput":{"hookEventName":"%s","additionalContext":"Canonical AutoCSS law (D7460N-ai/D7460N.ai AGENTS.md):\\n%s"}}\n' "$event" "$esc"

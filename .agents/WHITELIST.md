@@ -1,7 +1,7 @@
-# AutoCSS Whitelist — DRAFT (not yet adopted)
+# AutoCSS Whitelist
 
-Status: draft from session 2026-11-24/26. Not yet canon. Replaces nothing until the user approves and it is proven on small test projects (R13).
-Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installed (no hook entry in any settings.json).
+Status: live (owner approved 2026-11-28). Injected by `.claude/hooks/autocss-law.sh` at SessionStart, SubagentStart and every UserPromptSubmit (M5). Open items below stay open until ruled.
+Validator: `.claude/hooks/validate-edit.js` — installed as a PreToolUse hook (Write|Edit|Bash) in `~/.claude/settings.json`.
 
 **Rule 0. Everything is prohibited except what is listed here or what the user explicitly instructs, per instance.**
 
