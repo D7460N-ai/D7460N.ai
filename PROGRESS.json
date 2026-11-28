@@ -1,6 +1,11 @@
 {
   "todo": [
     {
+      "id": "P4-option",
+      "item": "Developer option to require that elements be in the template pool (pool is optional for now, owner ruling 2026-11-28)",
+      "status": "later"
+    },
+    {
       "id": "P3",
       "item": "AutoCSS data tables: ul > li rows; each JSON key/value becomes a custom element (tag from key, hyphen rules) holding the value; UI switches table/card/future views; fully responsive and accessible",
       "status": "later",
