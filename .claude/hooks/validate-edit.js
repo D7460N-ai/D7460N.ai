@@ -199,8 +199,10 @@ function jsProblems(text, file) {
   const rules = [
     [/\baddEventListener\b/g, "J4 addEventListener not on list"],
     [/\.click\s*\(|\bonclick\b/g, "J4 click not on list"],
-    [/\b(?:innerHTML|outerHTML|insertAdjacent\w+|classList|className|dataset|getElementById|getElementsBy\w+|querySelectorAll|createElement|appendChild|removeChild|replaceChild|replaceWith|cloneNode|setAttribute|removeAttribute|toggleAttribute|showPopover|hidePopover|togglePopover|showModal|textContent|innerText|XMLHttpRequest|setTimeout|setInterval|requestAnimationFrame|eval)\b/g, "J3 API not on list"],
-    [/\.(?:append|prepend|remove|before|after)\s*\(|\.style\b|\bdocument\.write\b|\bnew\s+Function\b|\bimport\s*\(/g, "J3 API not on list"],
+    // Allowed (not listed here): querySelectorAll (J6); appendChild, removeChild,
+    // cloneNode, setAttribute, .prepend() (J7: content-wrapping HTML + data writes).
+    [/\b(?:innerHTML|outerHTML|insertAdjacent\w+|classList|className|dataset|getElementById|getElementsBy\w+|createElement|replaceChild|replaceWith|removeAttribute|toggleAttribute|showPopover|hidePopover|togglePopover|showModal|textContent|innerText|XMLHttpRequest|setTimeout|setInterval|requestAnimationFrame|eval)\b/g, "J3 API not on list"],
+    [/\.(?:append|remove|before|after)\s*\(|\.style\b|\bdocument\.write\b|\bnew\s+Function\b|\bimport\s*\(/g, "J3 API not on list"],
     [/^(?:let|var)\s+\w+/gm, "J4 module-level mutable state"],
   ];
   for (const [re, label] of rules) {

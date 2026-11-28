@@ -118,5 +118,5 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | P8 | Wildcard `*` transitions (cdn `transitions.css`) | Investigate. |
 | P9 | JSON keys / mapping content to elements / reuse vs replace / future `contentEditable` | Investigate. |
 | P3 | Data tables, forms | Later; one way only. |
-| V1 | Validator: blocked by strict list | `querySelectorAll`, `textContent`, `@keyframes`, `@scope`, `:where`, `:is`, `:hover`. |
+| V1 | Validator: blocked by strict list | `textContent`, `@keyframes`, `@scope`, `:where`, `:is`, `:hover`. |
 | V2 | Validator: allowed by inference | `@font-face` (self-hosted fonts, R4); remote origin `https://autocss-com.github.io/`. |
