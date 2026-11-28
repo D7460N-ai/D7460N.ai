@@ -11,7 +11,7 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | R1 | Never assume anything except that the user knows more and knows what they are doing. Do exactly what the user says. No more, no less. |
 | R2 | User decides right, wrong, correct, incorrect. |
 | R3 | All design engineering is browser native. The native web browser is the framework. |
-| R4 | Zero third-party dependencies. No build tools. |
+| R4 | Zero third-party dependencies. No build tools. Web fonts allowed where appropriate: Google Fonts `@import` or self-hosted `@font-face`. |
 | R5 | Every project is a browser-native SPA: one page, SPA tabs only, zero routing to other pages. |
 | R6 | Every project is a browser-native PWA. |
 | R7 | All HTML structure is pre-delivered (JAMstack). |
@@ -51,8 +51,8 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | # | Allowed |
 |---|---|
 | H1 | One `index.html` per project; line 1 `<!doctype html>`; `<meta name="color-scheme" content="dark light">`. |
-| H2 | Elements: html head body title meta link script noscript template slot · header nav main aside footer article section hgroup address search · h1–h6 p · ul ol li dl dt dd · table thead tbody tfoot tr th td caption colgroup col · form fieldset legend label input select option optgroup textarea output · figure figcaption picture source img video audio track · details summary dialog menu a · time mark abbr cite code pre blockquote q strong em small sub sup br hr wbr |
-| H3 | Custom elements: `app-container` `app-banner` `app-logo` `app-user` `app-legal` `app-version` |
+| H2 | Elements: all valid semantic HTML elements. Never `div`, `span`. |
+| H3 | Custom elements: `app-container` `app-banner` `app-logo` `app-user` `app-legal` `app-version`, plus every custom element in the `<template>` pool. |
 | H4 | Attributes: element's own native attributes; `aria-label`, `aria-live`, `aria-disabled`; `aria-hidden="true"` only on non-focusable decorative elements; `role="list"` on `ul`. Never IDs, classes, `data-*`. |
 | H5 | Interaction: pure CSS state machines (`<label>` wrapping native radio/checkbox; input visually hidden, still focusable); native `<a href>` links; text `input`, `select`, `textarea`. |
 | H6 | Shell: `app-container` > `app-banner`, `header`(`app-logo`, `app-user`), `nav`, `main` > `article` > (`h1`, `section`), `aside`, `footer`(`app-legal`, `app-version`), `app-banner`. |
@@ -66,12 +66,12 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | C2 | Visibility: `display: none` ↔ `display: grid`, faded via `transition-behavior: allow-discrete` + `@starting-style`. |
 | C3 | Elements hidden by default while empty; `:not(:empty)` shows them. Gap between state-machine selection and data arrival = pure-CSS loading state (`:empty`). |
 | C4 | One concern per file; whole file in one `@layer <filename>`. Theme files `color-theme-<hex>.css` use `@layer color-theme`. `@scope` allowed. |
-| C5 | Selectors: element names, native attributes, H4 `aria-*`, pseudo-elements, universal `*`. State: `:checked` `:has()` `:not()` `:empty` `:focus-visible` `:user-valid` `:user-invalid` `:disabled` `:popover-open` `:hover` `:where()` `:is()` |
-| C6 | Layout: CSS Grid, implicit grid; never depends on child count/position. |
-| C7 | Sizes: `fr` `auto` `min-content` `max-content` `fit-content` `%` `rem` `em` `ch`, viewport + container units, `clamp()` `min()` `max()` `calc()`, custom properties, `@property`, `@function`, `if()`. |
+| C5 | Selectors: element names, native attributes, H4 `aria-*`, universal `*`, all pseudo-classes and pseudo-elements. |
+| C6 | Layout: CSS Grid. Prefer the implicit grid; explicit `grid-template-*` and numeric placement allowed where needed. Goal: fluid, flexible, non-brittle layouts that don't break when children are added or removed — avoid numbers that must be maintained. |
+| C7 | Sizes: all CSS units and sizing functions; custom properties, `@property`, `@function`, `if()`. |
 | C8 | Responsive: `@container`; media range syntax in `ch`; `prefers-*` media features. |
-| C9 | Color: `color-scheme: light dark` on `:root`; `light-dark()`; `oklch()`; system colors; `currentColor`. |
-| C10 | Logical properties. Padding/margin only on `p`, `h1`–`h6`, `label` (more on instruction). |
+| C9 | Color: `color-scheme: light dark` on `:root`; `light-dark()`; all CSS color types. |
+| C10 | Logical properties where content direction matters (RTL/LTR languages); physical properties allowed elsewhere. Padding/margin only on `p`, `h1`–`h6`, `label` (more on instruction). |
 | C11 | Motion: transitions on named properties; `@keyframes` animations; reduced under `prefers-reduced-motion`. |
 | C12 | Popover/hover placement: anchor positioning. |
 | C13 | `@supports`; `content-visibility` + `contain-intrinsic-size`. |
@@ -108,7 +108,7 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | T2 | Every empty/error state has a way out; first load never blank. |
 | T3 | Unsupported CSS feature → message: feature, user's browser + version, supporting version, download link. |
 | T4 | Modal = miniature `index.html`, no `h1`. |
-| T5 | Security headers: CSP `'self'` only, no `unsafe-*`; HSTS; nosniff; Referrer-Policy; Permissions-Policy; COOP/COEP/CORP. |
+| T5 | Security headers: CSP `'self'` (plus the Google Fonts origins when they are used), no `unsafe-*`; HSTS; nosniff; Referrer-Policy; Permissions-Policy; COOP/COEP/CORP. |
 
 ## Open — not ruled by the user
 | # | Item | Fact on record |
@@ -117,4 +117,4 @@ Validator: `.claude/hooks/validate-edit.js` — written and tested, NOT installe
 | P5 | `<app-notice>` + `showPopover()` | Preserve for now; investigate. |
 | P9 | JSON keys / mapping content to elements / reuse vs replace / future `contentEditable` | Investigate. |
 | P3 | Data tables, forms | Later; one way only. |
-| V2 | Validator: allowed by inference | `@font-face` (self-hosted fonts, R4); remote origin `https://autocss-com.github.io/`. |
+| V2 | Validator: allowed by inference | Remote origin `https://autocss-com.github.io/`. (`@font-face` ruled: R4.) |

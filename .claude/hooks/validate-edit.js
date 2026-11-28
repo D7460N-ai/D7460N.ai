@@ -19,13 +19,14 @@ const ELEMENTS = words(`
   figure figcaption picture source img video audio track
   details summary dialog menu a
   time mark abbr cite code pre blockquote q strong em small sub sup br hr wbr
-  app-container app-banner app-logo app-user app-legal app-version`); // H2 H3
+  button b i u s bdi bdo ruby rt rp dfn del ins kbd samp var data meter progress datalist
+  canvas iframe embed object map area base
+  app-container app-banner app-logo app-user app-legal app-version`); // H2 H3 (+ <template> pool custom elements)
 const ARIA = words("aria-label aria-live aria-disabled aria-hidden"); // H4
-const AT_RULES = words("layer container media supports property function starting-style font-face keyframes scope"); // C4 C8 C13 C7 C2 S2 C11
-const PSEUDO_CLASSES = words("checked has not empty focus-visible user-valid user-invalid disabled popover-open root hover where is"); // C5 C9
+const AT_RULES = words("layer container media supports property function starting-style font-face keyframes scope import"); // C4 C8 C13 C7 C2 S2 C11 R4
 const EVENTS = words("input"); // J4
 const SW_EVENTS = words("install activate fetch"); // P6
-const ORIGINS = ["https://autocss-com.github.io/"]; // R4: the only remote origin
+const ORIGINS = ["https://autocss-com.github.io/", "https://fonts.googleapis.com/", "https://fonts.gstatic.com/"]; // R4 (+ Google Fonts)
 const EXTENSIONS = words(".html .css .js .json");
 const SKIP = /\/(node_modules|\.git|\.claude|test|_archived)\/|_\.[a-z]+$|(^|\/)package(-lock)?\.json$/;
 
@@ -87,10 +88,13 @@ function check(file, text) {
 function htmlProblems(text) {
   const out = [];
   const html = text.replace(/<!--[\s\S]*?-->/g, "");
+  // H3: custom elements in the <template> pool are permitted.
+  const tpl = html.match(/<template[^>]*>([\s\S]*?)<\/template>/i)?.[1] ?? html;
+  const pool = new Set([...tpl.matchAll(/<([a-zA-Z][\w]*-[\w-]*)/g)].map((m) => m[1].toLowerCase()));
 
   for (const [, close, tag, attrs] of html.matchAll(/<(\/?)([a-zA-Z][\w-]*)([^>]*)>/g)) {
     const name = tag.toLowerCase();
-    if (!ELEMENTS.has(name)) out.push(`H2/H3 element not on list: <${name}>`);
+    if (!ELEMENTS.has(name) && !pool.has(name)) out.push(`H2/H3 element not on list: <${name}>`);
     if (close) continue;
 
     for (const attr of attrNames(attrs)) {
@@ -165,12 +169,6 @@ function cssProblems(text, file) {
 
   const rules = [
     [/\bdisplay\s*:\s*(?:inline-)?flex\b|(?:^|[;{\s])flex(?:-[a-z]+)?\s*:/g, "C6 Flexbox (Grid only)"],
-    [/(?:^|[;{\s])grid-template(?:-[a-z]+)?\s*:/g, "C6 explicit grid-template (implicit grid only)"],
-    [/(?:^|[;{\s])grid-(?:row|column)(?:-start|-end)?\s*:\s*-?\d/g, "C6 numeric grid placement"],
-    [/(?:^|[;{\s])(?:(?:margin|padding|border|inset)-(?:left|right|top|bottom)[\w-]*|left|right|top|bottom|(?:min-|max-)?(?:width|height))\s*:/g, "C10 physical property (logical only)"],
-    [/#[0-9a-f]{3,8}\b/gi, "C9 hex color"],
-    [/\b(?:rgba?|hsla?|hwb|lab|lch|oklab|color-mix|color)\(/gi, "C9 color function not on list"],
-    [/\b\d*\.?\d+(?:px|pt|pc|cm|mm|in|Q)\b/g, "C7 unit not on list"],
     [/(?:^|[;{\s])transition(?:-property)?\s*:\s*all\b/g, "C11 transition must name properties"],
   ];
   for (const [re, label] of rules) {
@@ -185,9 +183,7 @@ function selectorProblems(sel, out) {
   for (const [, attr] of sel.matchAll(/\[\s*([\w-]+)/g)) {
     if (notAllowedAttr(attr.toLowerCase())) out.push(`C5 attribute selector not on list: [${attr}]`);
   }
-  for (const [, pseudo] of sel.matchAll(/(?<!:):([a-z-]+)/gi)) {
-    if (!PSEUDO_CLASSES.has(pseudo.toLowerCase())) out.push(`C5 pseudo-class not on list: :${pseudo}`);
-  }
+  // C5: all pseudo-classes and pseudo-elements are permitted.
 }
 
 // MARK: JS
