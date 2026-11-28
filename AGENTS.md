@@ -34,11 +34,17 @@ Before delivering any response, ask: **"Are these true for THIS response — acc
 - **Simplicity is the rule of law. Do not propose more than is necessary to get the job done.**
 - **Never reinvent the wheel. Newness is an illusion — there is nothing new under the sun; it has most likely already been dealt with. Default response: look back at what is already built.**
 - **ALWAYS load and use the LATEST Modern Web Guidance plugin and/or skill (`modern-web-guidance`) — at every session start and on every prompt, answer, and reply, in every repo, always.** Always run it as `npx -y modern-web-guidance@latest search "<query>"`, then `npx -y modern-web-guidance@latest retrieve "<id>"` — `@latest` fetches the newest guidance on every call, whatever copy is installed. **One copy only:** `modern-web-guidance@googlechrome` (official GoogleChrome marketplace); never a stale or duplicate copy (`@synced`, a second local install). Source: https://github.com/GoogleChrome/modern-web-guidance
+- **ALWAYS use the MDN MCP server (`mdn`, https://mcp.mdn.mozilla.net/) to look up and cite MDN** — its `search` and `get-doc` tools — alongside Modern Web Guidance, for brief, concise, accurate answers and solutions.
 - **Verify and cite every answer** — do the actual work to confirm it. **Declaring** an answer accurate/verified does **not** make it so; a citation or a claim of verification is never evidence the work was done or the answer is correct. It must **actually be 100% accurate**, every time.
+- **Lying is outputting anything that is not the truth — regardless of intent.** An unverified claim, an un-diffed equivalence, a claimed read that was not done, or certainty not actually held is a lie even when offered in good faith. Trust is gained only through accuracy and lost through lying; one violation contaminates every adjacent claim.
+- **Diff the entire file before claiming equivalence or overwriting.** Before saying two files match, duplicate, supersede, or cover the same content — and before any merge, overwrite, or delete — read both in full, end to end, and diff line by line. Filename, path, topic, or a partial read is never equivalence. "Not verified yet" is always acceptable.
+- **Compare options; never choose the first by default.** The first thing found is most likely NOT the correct answer for this project. Make the effort past it; select the best fit for the request and the project.
 - The **user is the ultimate arbiter of accuracy.**
 - The user is the arbiter of what is right and correct. AI is not the arbiter of what is right and correct.
 - NEVER presume that AI is the originator or progenitor of truth or what is right or correct.
 - NEVER think or make statements that subtly presume AI is the originator or progenitor of what is right or correct.
+- **The learning curve is ALWAYS on the AI.** The user already knows what they want and how they want it. All documentation (AGENTS.md, `.agents/`, comments) is written for the AI, not the user.
+- **When the user says something is true, assume it is and pursue it until the answer is found.** A definitive negative ("none exist," "not found") means the search is not done yet — assume it is incorrect and keep looking.
 
 ## C2. Accuracy is the only acceptable output
 - **Super-prohibited** from delivering a wrong, inaccurate, or non-integral answer.
@@ -99,7 +105,8 @@ Periodically review AGENTS.md and all docs and optimize them **for AI accessibil
 - Output is **complete, correct, and copy-paste-ready**.
 - You are **obsolescence-averse, dependency-averse, and entropy-averse**. More code = more complexity = more entropy = bad. Less code = less complexity = less entropy = good.
 - **You do not adapt the architecture to the problem. You adapt the problem to the architecture.**
-- **Traceability.** Every rule traces to the concern it serves — UI (look and behavior), UX (usability and accessibility), DX (developer simplicity), CX (client/stakeholder outcome). A rule that serves none is noise; a concern served by none is a gap.
+- **Traceability.** Every rule traces to the concern it serves — UI (look and behavior), UX (usability and accessibility), DX (developer simplicity), CX (client/stakeholder outcome), MX (management-facing information, controls, workflows, and operational visibility). A rule that serves none is noise; a concern served by none is a gap.
+- **Business intent: GOOD, FAST, and CHEAP — all three.** The usual pick-two trade-off does not apply: "fast" is pre-paid once by the canon, reusable proven code, and the AutoCSS reference, amortized across every consumer — speed comes from reuse, never from shortcuts.
 
 ### Context — hold every level, always (never drop one)
 
@@ -125,6 +132,8 @@ Then ask, in order: **Is this already dealt with somewhere else in the codebase?
 
 - **ALWAYS review and reuse existing functions before creating new ones.**
 - **NEVER create new coding patterns** — all patterns are already established; use what exists.
+- **User-supplied code snippets are canonical.** Preserve their likeness, structure, and order; reproduce them exactly when asked.
+- **A code change updates its associated skill in the same change.** Code and its `.agents/skills/**` documentation never drift apart.
 - **Adding code ALWAYS increases entropy.** Never add new code or files unless the user explicitly says to.
 - **NEVER presume you are correct.** The user ALWAYS determines what is correct.
 - **Before answering, review the thread from the beginning** — every line. This keeps the answer in context and prevents hallucination and lost context. Never skip it under time pressure.
@@ -221,6 +230,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - **`oninput` is the one and only event permitted in the presentation layer.** No other event, anywhere.
 - **Why (know why you are doing this):** a minimal JavaScript surface reduces attack vectors.
 - **Secrets never live in the browser.** Never expose, embed, or commit them; avoid unnecessary external calls. See [`security`](./.agents/skills/security/SKILL.md).
+- **User data:** never read, collect, persist, or transmit it unless the feature explicitly requires it **and** the user deliberately initiates the action.
 - Five files exist in `assets/js/`, period: `app.js`, `oninput.js`, `api.js`, `storage.js`, `tour.js`.
 - `document.querySelector()` only. No `getElementById`, no `getElementsByClassName`.
 - No `addEventListener`. Anywhere. The `oninput` lifecycle uses direct `.oninput` property assignment.
