@@ -41,7 +41,8 @@
       ["dispatchEvent\\s*\\((?!\\s*new Event\\(\\s*[\"']input[\"'])", "AGENTS 5: dispatchEvent only for the sanctioned input event", ""],
       ["^\\s*let\\s", "AGENTS 5: no module-level mutable state", "m"],
       ["from\\s+[\"'](?!\\.{1,2}/)", "AGENTS 2: no third-party imports", ""],
-      ["\\btoKebab\\b", "naming: toTagName, not toKebab", ""]
+      ["\\btoKebab\\b", "naming: toTagName, not toKebab", ""],
+      ["\\bgetElement(?:ById|sBy\\w+)\\b", "AGENTS 5: reach elements with CSS selector syntax (querySelector, querySelectorAll, closest, matches); never getElementById/getElementsBy*", ""]
     ]
   },
   "json": [

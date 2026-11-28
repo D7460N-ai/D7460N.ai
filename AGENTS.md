@@ -78,7 +78,7 @@ Every answer MUST include, in the thinking/processing, consideration of:
 - **Universal compatibility & interoperability.**
 - **Baked-in, browser-native accessibility.** Seek out and deliberately prefer cross-browser, browser-native accessibility features (e.g., accessibility-bearing CSS selectors) and engineer the UI to **depend on them to work** — without hindering other features.
 - **Usability — for end-users AND future developers.** Deliberately seek and prefer **simplicity over complexity** as a superior engineering-design principle. ("Simplicity is the ultimate sophistication" — attributed to Leonardo da Vinci; cf. Shakespeare, *"brevity is the soul of wit."*)
-- **Least Power / preferred tech-stack order.** Ask in order: *Can it be done with just HTML? If no — with just CSS?* **JS is not to be considered for the presentation layer.** Everything in the presentation layer must be achievable with **modern HTML + CSS only** — that is the sophistication advanced/senior developers and designers seek today (even if they don't know it yet). *(In repos that are a data/business layer rather than the presentation layer, the framework is the sanctioned exception; this rule governs the AutoCSS presentation layer they consume.)*
+- **Least Power / preferred tech-stack order.** Ask in order: *Can it be done with just HTML? If no — with just CSS?* **JS is not to be considered for the presentation layer.** Everything in the presentation layer must be achievable with **modern HTML + CSS only** — that is the sophistication advanced/senior developers and designers seek today (even if they don't know it yet). *(In repos that are a data/business layer rather than the presentation layer, the framework is the sanctioned exception; this rule governs the AutoCSS presentation layer they consume.)* **CSS is ALWAYS preferred over JS.** If JS can be replaced with CSS, replace it, unless there are qualifying circumstances to keep it in JS; state them. Write as much as possible in HTML and CSS, and the least JS possible. Always enforced.
 - **Minimum O&M** (operations & maintenance).
 - **Future-proofing: zero third-party (non-native-browser) dependencies.**
 - **The rest of the core principles — never skip.**
@@ -182,7 +182,7 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - **The user-agent (web browser) is the single source of truth. It is the platform. It is the framework.** Anything and everything that is not native to the browser is, by definition, optional and custom.
 - **The system must function even with JavaScript disabled.**
 - **HTML + CSS only** for everything except data transport (CRUD).
-- **The three-way air-gap, absolute:** NEVER any HTML or CSS in JS. NEVER any CSS or JS in HTML. NEVER any JS or HTML in CSS.
+- **The three-way air-gap, absolute:** NEVER any HTML in JS. NEVER any CSS or JS in HTML. NEVER any JS or HTML in CSS. **JS uses CSS and its selector logic to select elements** (`querySelector`, `querySelectorAll`, `closest`, `matches`).
 - Combine modern standard vanilla HTML/CSS features and techniques as needed.
 - **JavaScript** is permitted only below the `oninput` boundary: bootstrap, the `oninput` lifecycle, data transport (CRUD), and persistence. One function per file; no limit on the number of files. Reference implementation: [`.agents/skills/javascript/references/implementation/`](./.agents/skills/javascript/references/implementation/).
 - **No third-party dependencies.**
@@ -233,11 +233,11 @@ Every architectural or technical claim cites an authoritative source: W3C, WHATW
 - **Secrets never live in the browser.** Never expose, embed, or commit them; avoid unnecessary external calls. See [`security`](./.agents/skills/security/SKILL.md).
 - **User data:** never read, collect, persist, or transmit it unless the feature explicitly requires it **and** the user deliberately initiates the action.
 - No limit on the number of files — in `assets/js/` or anywhere (HTML, CSS, JS). One function per file, as many files as needed (§2). Reference implementation: [`.agents/skills/javascript/references/implementation/`](./.agents/skills/javascript/references/implementation/).
-- `document.querySelector()` / `querySelectorAll()` only. No `getElementById`, no `getElementsByClassName`.
+- **Reach elements with CSS selector syntax and logic** (`querySelector`, `querySelectorAll`, `closest`, `matches`) as much as possible. Use JS node-walking (e.g. `parentNode`, `childNodes`) only where CSS can't do it, with the justification written in a code comment beside it. Never `getElementById` or `getElementsBy…`.
 - No `addEventListener`. Anywhere. The `oninput` lifecycle uses direct `.oninput` property assignment.
 - No `on*=` event handler attributes in markup.
 - Stateless and idempotent. No module-level mutable state. No globals.
-- No `innerHTML`. No inline styles. No DOM manipulation for presentation.
+- **No JS DOM manipulation (hard rule).** Sole exception: adding or removing HTML that the data requires and that isn't already in the page, e.g. `ul`/`li` table rows, nav labels and their radio inputs, dropdown-menu items, content paragraphs. Never `innerHTML` (that's HTML in JS), never inline styles, never JS-driven presentation.
 - API base URL declared once; only endpoint suffix varies.
 - **`.click()` and `onclick` are forbidden. Never. Anywhere.** `oninput` is the only event.
 - Initial load enters the **same** `oninput` lifecycle by *selecting* a nav radio: read the persisted selection from storage (or the first nav radio if none — no nav radio is `checked` in the HTML by default), set `input.checked = true`, then dispatch an input event on it (`input.dispatchEvent(new Event('input', { bubbles: true }))`) so the input's **own** `oninput` fires. Setting `.checked` alone does not fire `oninput`, and `.click()`/`onclick` are forbidden — so this `dispatchEvent` is the **single sanctioned** use, only for programmatic selection on load/restore where no real user event exists. Every real user interaction fires `oninput` natively; never dispatch for those. `:checked` remains the single source of truth for both the CSS state machine and the data call.
