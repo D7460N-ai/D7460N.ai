@@ -199,17 +199,19 @@ function sessionStart(j) {
   try { fs.writeFileSync(baselineFile(j.session_id), JSON.stringify(seen)); } catch {}
   const notes = [];
   const global = read(path.join(os.homedir(), ".claude", "CLAUDE.md"));
-  if (!global || !global.includes("@~/D7460N.ai/AGENTS.md") || !read(path.join(os.homedir(), "D7460N.ai", "AGENTS.md"))) notes.push("WARNING: ~/.claude/CLAUDE.md does not import ~/D7460N.ai/AGENTS.md. Canon is NOT loaded. Tell the owner now.");
+  if (!global || !global.includes("@~/D7460N.ai/.agents/WHITELIST.md") || !read(path.join(os.homedir(), "D7460N.ai", ".agents", "WHITELIST.md"))) notes.push("WARNING: ~/.claude/CLAUDE.md does not import ~/D7460N.ai/.agents/WHITELIST.md. Canon is NOT loaded. Tell the owner now.");
   if (read(path.join(cwd, ".agents", "SESSION-HANDOFF.md")) != null) notes.push("Read the entire .agents/SESSION-HANDOFF.md and re-assert its Constraint Lock before any implementation decision.");
-  if (j.source === "compact") notes.push("Context was compacted. Re-read AGENTS.md in full before continuing.");
+  if (j.source === "compact") notes.push("Context was compacted. Re-read .agents/WHITELIST.md in full before continuing.");
   if (notes.length) out({ hookSpecificOutput: { hookEventName: "SessionStart", additionalContext: notes.join("\n") } });
 }
 
 function userPromptSubmit(j) {
   const card = RULES.injectSections.map(section).filter(Boolean).join("\n\n");
   const prior = /\b(before|previous|earlier|last time|again|already|prior|you said|we did|remember)\b/i.test(j.prompt ?? "");
-  const text = (card || "WARNING: AGENTS.md could not be read. Tell the owner now.") + (prior ? "\n\nThis prompt references prior work: check the handoff, PROGRESS.json and memory before answering (C3)." : "");
-  out({ hookSpecificOutput: { hookEventName: "UserPromptSubmit", additionalContext: text.slice(0, 9900) } });
+  // injectSections may be empty: the whitelist (autocss-law.sh) is then the only rule text injected.
+  const warn = RULES.injectSections.length && !card ? "WARNING: AGENTS.md could not be read. Tell the owner now." : "";
+  const text = [card || warn, prior ? "This prompt references prior work: check the handoff, PROGRESS.json and memory before answering (C3)." : ""].filter(Boolean).join("\n\n");
+  if (text) out({ hookSpecificOutput: { hookEventName: "UserPromptSubmit", additionalContext: text.slice(0, 9900) } });
 }
 
 if (require.main === module) {

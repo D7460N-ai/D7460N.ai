@@ -6,7 +6,7 @@
     "json": "(^|/)assets/(data|json)/.+\\.json$"
   },
   "concernSkill": { "css": "css", "js": "javascript", "html": "html", "json": "json" },
-  "injectSections": ["## C1\\.", "## C4\\.", "## C5\\."],
+  "injectSections": [],
   "css": [
     ["!important", "AGENTS 4: no !important", ""],
     ["display\\s*:\\s*(inline-)?flex|\\bflex-(direction|wrap|flow|grow|shrink|basis)\\s*:", "AGENTS 2: Grid only, never Flexbox", "i"],
