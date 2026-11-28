@@ -7,13 +7,13 @@ The HTML side of the state-machine pattern. The CSS side is in `../../css/refere
 ```html
 <label>
   Save
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" />
 </label>
 ```
 
 - `<label>` supplies the accessible name (its text). Never `role="button"` on it (AGENTS.md §3): the button role makes every descendant presentational, erasing the input role and checked state.
 - `<input type="checkbox">` holds the state.
-- `aria-hidden="true"` removes the input from the accessibility tree (the label already conveys the role and state).
+- The input carries no `aria-hidden` (AGENTS.md §3): it keeps its native `checkbox`/`radio` role and checked state in the accessibility tree.
 
 ## Mutually exclusive selection (navigation, tabs, radio groups)
 
@@ -21,15 +21,15 @@ The HTML side of the state-machine pattern. The CSS side is in `../../css/refere
 <nav>
   <label>
     Home
-    <input type="radio" name="nav" aria-hidden="true" />
+    <input type="radio" name="nav" />
   </label>
   <label>
     About
-    <input type="radio" name="nav" aria-hidden="true" />
+    <input type="radio" name="nav" />
   </label>
   <label>
     Contact
-    <input type="radio" name="nav" aria-hidden="true" />
+    <input type="radio" name="nav" />
   </label>
 </nav>
 ```
@@ -42,7 +42,7 @@ The HTML side of the state-machine pattern. The CSS side is in `../../css/refere
 ```html
 <label>
   Theme
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" />
 </label>
 ```
 
@@ -52,9 +52,9 @@ A single checkbox is a toggle. CSS reads via `:has(input:checked)`.
 
 ```html
 <label role="radiogroup" aria-label="View mode">
-  <input type="radio" name="view" value="grid" aria-hidden="true" checked />
-  <input type="radio" name="view" value="list" aria-hidden="true" />
-  <input type="radio" name="view" value="table" aria-hidden="true" />
+  <input type="radio" name="view" value="grid" checked />
+  <input type="radio" name="view" value="list" />
+  <input type="radio" name="view" value="table" />
   View
 </label>
 ```
@@ -67,11 +67,11 @@ The last label in the nav holds the menu-toggle checkbox. When narrow containers
 
 ```html
 <nav>
-  <label>Home <input type="radio" name="nav" aria-hidden="true" /></label>
-  <label>About <input type="radio" name="nav" aria-hidden="true" /></label>
-  <label>Contact <input type="radio" name="nav" aria-hidden="true" /></label>
+  <label>Home <input type="radio" name="nav" /></label>
+  <label>About <input type="radio" name="nav" /></label>
+  <label>Contact <input type="radio" name="nav" /></label>
   <label aria-label="Menu">
-    <input type="checkbox" aria-hidden="true" />
+    <input type="checkbox" />
   </label>
 </nav>
 ```
@@ -83,7 +83,7 @@ The CSS in the nav handles the responsive collapse — see `../../css/references
 - Never use `<button>` with `onclick` in markup — `on*=` is forbidden
 - Never use `<button>` with JS-attached handler when the label/input pattern fits — UI state belongs in CSS
 - Never omit `aria-label` when the label content is non-textual or stylized
-- Never omit `aria-hidden="true"` on the input — the input is a state holder, not an announceable element
+- Never put `aria-hidden` on the input or its label, and never `display: none` the input (AGENTS.md §3)
 
 ## Baseline & support
 

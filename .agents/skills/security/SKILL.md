@@ -62,7 +62,7 @@ These patterns are what the architecture already produces. They are listed here 
 ```html
 <label>
   Save
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" />
 </label>
 ```
 

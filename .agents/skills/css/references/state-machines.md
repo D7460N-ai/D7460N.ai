@@ -9,7 +9,7 @@ A button-like control:
 ```html
 <label>
   Save
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" />
 </label>
 ```
 
@@ -32,10 +32,10 @@ Mutually-exclusive radio inputs inside `<nav>`:
 ```html
 <nav>
   <label>
-    <input type="radio" name="nav" aria-hidden="true" />
+    <input type="radio" name="nav" />
   </label>
   <label>
-    <input type="radio" name="nav" aria-hidden="true" />
+    <input type="radio" name="nav" />
   </label>
 </nav>
 ```
@@ -61,24 +61,25 @@ The radio name (`name="nav"`) groups the inputs so only one is checked at a time
 
 ```css
 @layer state {
-  /* Visually hide the input but keep it in the layout and the tab order, so the
+  /* Visually hide the input but keep it in the accessibility tree and the tab
+     order: it overlays its label, so the whole label is the hit area and the
      control stays keyboard-operable (Tab to reach it, Space / arrow keys to
-     toggle). This is the accepted a11y technique — see the a11y skill's
-     `.visually-hidden` pattern. */
-  input[aria-hidden="true"] {
+     toggle). The label needs position: relative. */
+  label > input {
     position: absolute;
-    inline-size: 0.0625rem;
-    block-size: 0.0625rem;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
+    z-index: 1;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    opacity: 0;
+    cursor: inherit;
   }
 }
 ```
 
 The input is hidden visually but **remains focusable** — the label provides the visible control while the real radio/checkbox still receives keyboard focus and holds `:checked`. Do **not** use `display: none` here: it removes the input from the tab order, so a keyboard or AT user can no longer toggle the state.
 
-> **Open a11y nuance to resolve:** `aria-hidden="true"` on a *focusable* input is itself an ARIA anti-pattern (a focusable element should not be hidden from the accessibility tree). Whether the input should keep `aria-hidden`, or the accessible name/role should move entirely to the label with the input exposed, is a pattern-level decision worth confirming — flagged, not silently changed.
+The input carries no `aria-hidden` (AGENTS.md §3): it keeps its native `checkbox`/`radio` role and checked state in the accessibility tree; the label supplies the accessible name.
 
 ## Why this pattern instead of a button
 
@@ -93,9 +94,9 @@ Use multiple checkboxes inside the same label for multi-state controls. Or radio
 
 ```html
 <label>
-  <input type="radio" name="mode" value="view" aria-hidden="true" checked />
-  <input type="radio" name="mode" value="edit" aria-hidden="true" />
-  <input type="radio" name="mode" value="delete" aria-hidden="true" />
+  <input type="radio" name="mode" value="view" checked />
+  <input type="radio" name="mode" value="edit" />
+  <input type="radio" name="mode" value="delete" />
   Mode
 </label>
 ```

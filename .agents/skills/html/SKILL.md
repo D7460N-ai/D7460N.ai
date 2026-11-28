@@ -70,7 +70,7 @@ Interactive elements that are not intrinsically interactive (like `<button>`) us
 ```html
 <label>
   Save
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" />
 </label>
 ```
 
@@ -79,12 +79,12 @@ Interactive elements that are not intrinsically interactive (like `<button>`) us
 ```html
 <nav>
   <label>
-    <input type="radio" name="nav" aria-hidden="true" />
+    <input type="radio" name="nav" />
   </label>
 </nav>
 ```
 
-The `aria-hidden="true"` keeps the input out of the accessibility tree; the label carries the accessible name and role. CSS hides the input visually via `[aria-hidden="true"] { display: none; }`. See `references/state-machines.md`.
+The input carries no `aria-hidden` and is never `display: none` (AGENTS.md §3): it stays in the accessibility tree and tab order with its native role and checked state; the label supplies the accessible name. CSS hides it visually but keeps it focusable. See `references/state-machines.md`.
 
 `<button>` may be used where its native semantics fit. Never substitute a button for the label/input pattern.
 
@@ -113,7 +113,7 @@ A single `index.html` at project root. The shell is the same on every page; only
     <app-user></app-user>
   </header>
   <nav>
-    <label><input type="radio" name="nav" aria-hidden="true"></label>
+    <label><input type="radio" name="nav"></label>
   </nav>
   <main>
     <article>

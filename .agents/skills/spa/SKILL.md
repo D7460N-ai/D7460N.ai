@@ -20,8 +20,8 @@ Global navigation is mutually-exclusive radio inputs inside labels, inside `<nav
 
 ```html
 <nav>
-  <label><input type="radio" name="nav" aria-hidden="true" /></label>
-  <label><input type="radio" name="nav" aria-hidden="true" /></label>
+  <label><input type="radio" name="nav" /></label>
+  <label><input type="radio" name="nav" /></label>
 </nav>
 ```
 

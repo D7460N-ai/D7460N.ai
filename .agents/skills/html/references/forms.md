@@ -26,7 +26,7 @@
 
     <label>
       Send
-      <input type="checkbox" aria-hidden="true" />
+      <input type="checkbox" />
     </label>
   </fieldset>
 </form>
@@ -60,11 +60,11 @@ Forms with logical sub-groups use multiple `<fieldset>`s:
     <legend>Actions</legend>
     <label>
       Send
-      <input type="checkbox" aria-hidden="true" />
+      <input type="checkbox" />
     </label>
     <label>
       Cancel
-      <input type="checkbox" aria-hidden="true" />
+      <input type="checkbox" />
     </label>
   </fieldset>
 </form>

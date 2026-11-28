@@ -113,7 +113,7 @@ The number of columns adapts to container width automatically.
 ```html
 <label>
   Save
-  <input type="checkbox" aria-hidden="true" />
+  <input type="checkbox" />
 </label>
 ```
 
